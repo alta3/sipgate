@@ -50,11 +50,11 @@ storage `100G`
 
 1. The [WEB-RTC repo](https://github.com/havfo/WEBRTC-to-SIP) says that [this client](https://github.com/havfo/SipCaller) is supposed to work. We shall see.
 
-0. Get a really old version of nginx (why)
+0. Get a really old version of nginx (why?)
 
     `echo 'deb http://nginx.org/packages/mainline/debian/ stretch nginx' > /etc/apt/sources.list.d/nginx.list`
 
-0. get the key to access this nginx version curl (why)
+0. get the key to access this nginx version curl (why?)
 
     `curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add -`
 
