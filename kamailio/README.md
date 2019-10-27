@@ -1,4 +1,4 @@
-#  Install kamailio 
+#  Install kamailio on ubuntu 18.04
 
 **The password *kam12345* is used as an example. OK to try it for testing, but NO WAY do you let that password make it to production!**
 
