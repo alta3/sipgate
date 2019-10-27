@@ -88,11 +88,31 @@ Begin
         # #!define WITH_USRLOCDB
         # =============================================
 
-    `sudo cp  ~/siplabcreater/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg`
+    `sudo cp  ~/sipgate/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg`
 
-0. Create the database
+0. Create the database. 
 
     `sudo /usr/local/sbin/kamdbctl create`
+
+        FYI: mysql: [Warning]'s have been removed for clarity...
+        INFO: test server charset
+        INFO: creating database kamailio ...
+        INFO: granting privileges to database kamailio ...
+        INFO: creating standard tables into kamailio ...
+        INFO: Core Kamailio tables succesfully created.
+        Install presence related tables? (y/n): y     <-- answer "y"
+        INFO: creating presence tables into kamailio ...
+        INFO: Presence tables succesfully created.
+        Install tables for imc cpl siptrace domainpolicy carrierroute
+                        drouting userblacklist htable purple uac pipelimit mtree sca mohqueue
+                        rtpproxy rtpengine? (y/n): y  <-- answer "y"
+        INFO: creating extra tables into kamailio ...
+        INFO: Extra tables succesfully created.
+        Install tables for uid_auth_db uid_avp_db uid_domain uid_gflags
+                        uid_uri_db? (y/n): y          <-- answer "y"
+        INFO: creating uid tables into kamailio ...
+        INFO: UID tables succesfully created.
+
 
 0. Edit kamailio.cfg file {{IP ADDR, etc}}
 
