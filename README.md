@@ -2,12 +2,12 @@
 
 sipgate requires the following services:
 
-- A sipgrate server, with a single interface
-- A valid domain `sip.alta3.com` FQDN
-- A valid certificate
+- A sipgate server, with a single interface in the alt3 services subnet `10.1.16.0/24`
+- A valid domain `sip.alta3.com`
+- A valid certificate `lets-encrypt`
 - A js SIP client
 - NGINX to serve the js SIP client
-- Kamailio Secure Web socket to SIP gateway (WSS to SIP)
+- Kamailio Secure Web socket to SIP gateway `WSS to SIP`
 - A turn server for NAT traversal
 - A SIP target to call. `asterisk server`
 
