@@ -89,7 +89,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 0. Create the package
 
-    `dpkg-buildpackage -us -uc -sa`
+    `sudo dpkg-buildpackage -us -uc -sa`
 
 0. cd backwards one directory
 
