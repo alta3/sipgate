@@ -1,0 +1,131 @@
+#  Install kamailio 
+
+**The password *kam12345* is used as an example. OK to try it for testing, but NO WAY do you let that password make it to production!**
+
+Source files are in: ~/siplabcreater/kamailio  
+Work directory is:   ~/github/kamailio
+
+1. Install the dependencies
+
+    `sudo apt install gcc g++ flex bison libmysqlclient-dev make libcurl4-openssl-dev libssl-dev libxml2-dev libpcre3-dev libunistring-dev mysql-server libsctp-dev`
+
+0. Secure the mysql installation (this is a mysql parameter)
+
+    `sudo mysql_secure_installation`
+
+0. Create directory
+
+    `mkdir -p ~/github`
+
+0. CD into new directory
+
+    `cd ~/github`
+
+0. Clone the kamailio REPO
+
+    `sudo git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio`
+
+0. cd into the new git repo
+
+    `cd kamailio`
+
+0. drop back to 5.1
+
+    `sudo git checkout -b 5.1 origin/5.1` 
+
+0. Generate build config files
+
+    `make cfg`
+
+0. Optionally, edit the modules.lst file and include the extra modules listed below on line 10. Should be good to go as it is.  
+
+    `vim ~/sipgate/kamailio/modules.lst`
+
+0. Copy the file into the workspace
+
+    `cp  ~/sipgate/kamailio/modules.lst ~/github/kamailio/src/modules.lst`
+
+0. Make cfg
+
+    `make include_modules="db_mysql dialplan presence regex websocket rtpengine tls sctp" cfg`
+
+0. Compile kamailio
+
+    `make all`
+
+0. Install kamailio
+
+    `sudo make install 
+
+0.  Edit the kamctlrc file changing user passwords and adding DBENGINE=MYSQL Should already be done.
+
+    `sudo vim ~/sipgate/kamailio/kamctlrc`  
+
+        SIP_DOMAIN=sip.alta3.com
+        DBENGINE=MYSQL
+        #DBNAME=kamailio
+        DBRWUSER="kamailio"
+        DBRWPW="kam12345"
+        DBROUSER="kamailioro"
+        DBROPW="kam12345"
+        DBROOTUSER="root"
+        DBROOTPW="kam12345"
+    
+0. Copy the kamctlrc file to the workspace.
+
+    `sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc`
+
+0. copy kamailio.cfg to the proper directory with edits. Edit line 123(ish) in this example assuming the password is "kam12345"
+
+        #   #!define DBURL "mysql://kamailio:kam12345@localhost/kamailio"
+        # in the #! section, enable the WITH_MYSQL compiler directives
+        # =============================================
+        # #!define WITH_MYSQL
+        # #!define WITH_AUTH
+        # #!define WITH_USRLOCDB
+        # =============================================
+
+    `sudo cp  ~/siplabcreater/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg`
+
+0. Create the database
+
+    `sudo /usr/local/sbin/kamdbctl create`
+
+0. Edit kamailio.cfg file {{IP ADDR, etc}}
+
+    `sudo vim /usr/local/etc/kamailio/kamailio.cfg`
+
+0. The init script is already to go, but check to be sure it is pointing at kamailio executables and config files
+
+        PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin
+        DAEMON=/usr/local/sbin/kamailio
+        CFGFILE=/user/local/etc/kamailio/kamailio.cfg
+
+0. Copy kamailio.init to /etc/init.d
+
+    `sudo cp ~/siplabcreater/kamailio/kamailio.init   /etc/init.d/kamailio`
+
+0. Don't forget to set the permissions:
+
+    `sudo chmod 755 /etc/init.d/kamailio`
+
+0. Copy (and rename) kamailio.defaults file to /etc/defaults/kamailio
+
+    `sudo cp ~/siplabcreater/kamailio/kamailio.default   /etc/default/kamailio`
+
+0. Edit defaults file to run RUN_KAMAILIO=yes (simply uncomment)
+
+    `sudo vim /etc/default/kamailio`
+
+0. Create the directory for pid file
+
+    `sudo mkdir -p /var/run/kamailio`
+
+0. Add kamailio user, ignore the complaint, it is fixed in the next line.
+
+    `sudo adduser --quiet --system --group --disabled-password --shell /bin/false --gecos "Kamailio" --home /var/run/kamailio kamailio`
+
+0. fix the "chown" issue. 
+
+    `sudo chown kamailio:kamailio /var/run/kamailio`
+
