@@ -13,7 +13,7 @@
 
 
 ----
-### 1 sipgate server
+### 1 - sipgate server
 hostname: `sipgate`  
 subnet:  `10.1.16.0/24`  
 vlan: `1601`  
@@ -23,13 +23,13 @@ mem: `8G`
 storage `100G`  
 
 ----
-### 2 SIP Domain
+### 2 - SIP Domain
 1. area 53 dns is resolving `sip.alta3.com` to `71.251.147.236`
 
 0. The cloud pfsense is forwarding 5060 and RTP ports to the sipgate server
 
 ----
-### 3 TLS cert
+### 3 - TLS cert
 1. Use lets-ecrypt to get a signed cert
 
     `sudo apt-get install certbot`
