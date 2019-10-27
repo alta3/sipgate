@@ -103,21 +103,21 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `dpkg-checkbuilddeps`
 
-0. Start building the packages using flags that generate unsigned deb files for local use.
+0. Start building the packages using flags that generate unsigned deb files for local use. This takes five minutes, so find something else to do.
 
-    `dpkg-buildpackage -b -uc -us`
+    `dpkg-buildpackage -us -uc -sa`
 
 0. cd backwards one directory
 
     `cd ..`
 
-0. Install the package you just created ...
+0. Create the config directory
 
-    `sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb`
+    `sudo mkdir -p /etc/rtpengine
+    
+0. Edit /etc/rtpengine/rtpengine.conf. Above FAILS without this config in place.
 
-0. Edit /etc/rtpengine/rtpengine.conf
-
-    `sudo vim rtpengine/rtpengine.conf`
+    `sudo vim /etc/rtpengine/rtpengine.conf`
 
         [rtpengine]
         table = 0
@@ -127,5 +127,19 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
         silent-timeout = 3600
         tos = 184
         port-min = 16384
-        port-max = 16485
+        port-max = 16485    
+
+0. Install the package you just created ...
+
+    `sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb`
+
+0. Check if one instance of rtpengine is running
+
+    `sudo ps -ef | grep [r]tpengine`
+    
+        ubuntu   30202     1  0 21:25 pts/2    00:00:00 rtpengine   
+        
+0. Stop rtpengine as follows:
+
+    `sudo pkill rtpengine` 
 
