@@ -33,7 +33,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 ------
 1. Use lets-ecrypt to get a signed cert
 
-    `sudo apt-get install certbot`
+    `sudo apt-get install -y certbot`
 
 0. Tell certbot to create a cert.
 
