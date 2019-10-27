@@ -15,6 +15,8 @@
 ----
 ### sipgate server
 hostname: `sipgate`  
+subnet:  `10.1.16.0/24`  
+vlan: `1601`  
 ip addr: `sipgate.localdomain`  
 cores: `4`  
 mem: `8G`  
