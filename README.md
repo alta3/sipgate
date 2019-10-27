@@ -48,4 +48,40 @@ storage `100G`
 
 ### 4 - JS Client
 
-1. The [WEB-RTC repo](https://github.com/havfo/WEBRTC-to-SIP) says that [this client](https://github.com/havfo/SipCaller) is supposed to work. We shall see
+1. The [WEB-RTC repo](https://github.com/havfo/WEBRTC-to-SIP) says that [this client](https://github.com/havfo/SipCaller) is supposed to work. We shall see.
+
+0. Get a really old version of nginx (why)
+
+    `echo 'deb http://nginx.org/packages/mainline/debian/ stretch nginx' > /etc/apt/sources.list.d/nginx.list`
+
+0. get the key to access this nginx version curl (why)
+
+    `curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add -`
+
+0. update
+
+    `apt-get update`
+
+0. Get the stretc version of nginx
+
+    `apt-get install nginx`
+
+0. cd into the repo
+
+    `cd WEBRTC-to-SIP`
+
+0. copy the nginx config file to the running directory
+
+    `cp etc/nginx/nginx.conf /etc/nginx/`
+
+0. Move more nginx config
+
+    `cp etc/nginx/conf.d/default.conf /etc/nginx/conf.d/`
+    
+0. Install client
+
+    `cp -r client/* /var/www/html/`
+    
+0. Restart nginx
+
+    `service nginx restart`
