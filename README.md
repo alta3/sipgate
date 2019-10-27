@@ -45,3 +45,7 @@ storage `100G`
 0. Admire your new chain of keys
 
     `sudo cat /etc/letsencrypt/live/sip.alta3.com/fullchain.pem`
+
+### JS Client
+
+0. (This)[https://github.com/havfo/SipCaller] is supposed to work. We shall see
