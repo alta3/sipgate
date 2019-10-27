@@ -10,7 +10,7 @@ Begin
 
 1. Install the dependencies
 
-    `sudo apt install gcc g++ flex bison libmysqlclient-dev make libcurl4-openssl-dev libssl-dev libxml2-dev libpcre3-dev libunistring-dev mysql-server libsctp-dev`
+    `sudo apt install -y gcc g++ flex bison libmysqlclient-dev make libcurl4-openssl-dev libssl-dev libxml2-dev libpcre3-dev libunistring-dev mysql-server libsctp-dev`
 
 0. Secure the mysql installation (this is a mysql parameter)
 
