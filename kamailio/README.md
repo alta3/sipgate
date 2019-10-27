@@ -26,7 +26,7 @@ Begin
 
 0. Clone the kamailio REPO
 
-    `sudo git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio`
+    `git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio`
 
 0. cd into the new git repo
 
@@ -34,7 +34,7 @@ Begin
 
 0. drop back to 5.1
 
-    `sudo git checkout -b 5.1 origin/5.1` 
+    `git checkout -b 5.1 origin/5.1` 
 
 0. Generate build config files
 
@@ -58,11 +58,11 @@ Begin
 
 0. Install kamailio
 
-    `sudo make install 
+    `sudo make install` 
 
 0.  Edit the kamctlrc file changing user passwords and adding DBENGINE=MYSQL Should already be done.
 
-    `sudo vim ~/sipgate/kamailio/kamctlrc`  
+    `vim ~/sipgate/kamailio/kamctlrc`  
 
         SIP_DOMAIN=sip.alta3.com
         DBENGINE=MYSQL
