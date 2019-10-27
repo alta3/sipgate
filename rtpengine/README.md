@@ -6,7 +6,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 ### Install certbot
 ------
 
-0. Clone the webrtc repo
+1. Clone the webrtc repo
 
     `git clone git@github.com:havfo/WEBRTC-to-SIP.git`
 
@@ -33,7 +33,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 ### This section needs work to replace a bash version of an ansible template
 ----
 
-0. CD into the repo
+1. CD into the repo
 
     `cd WEBRTC-to-SIP/`
 
@@ -56,7 +56,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 ### Install rtpengine
 -----
 
-0. [Source info](https://nickvsnetworking.com/rtpengine-installation-configuration/) that needed tweaking to make this section work: 
+1. [Source info](https://nickvsnetworking.com/rtpengine-installation-configuration/) that needed tweaking to make this section work: 
 
 0. clone rtpengine repo
 
