@@ -24,9 +24,9 @@ storage `100G`
 
 ----
 ### FQDN
-1. area 53 dns is resolving sip.alta3.com to 71.251.147.236
+1. area 53 dns is resolving `sip.alta3.com` to `71.251.147.236`
 
-0. pfsense is forwarding 5060 and RTP ports to the sipgate server
+0. The cloud pfsense is forwarding 5060 and RTP ports to the sipgate server
 
 ----
 ### Install certbot
