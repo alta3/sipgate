@@ -14,7 +14,7 @@ Begin
 
 0. Secure the mysql installation (this is a mysql parameter)
 
-    `sudo mysql_secure_installation`
+    `sudo mysql_secure_installation  --user=root --password=kam12345  --use-default`
 
 0. Create directory
 
