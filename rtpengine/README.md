@@ -2,9 +2,7 @@
 
 Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/README.md) for the source document of steps that mostly work. Corrections listed here.
 
-
-### Install certbot
-------
+### Parts of the WEB-RTC repo are usable (for now)
 
 1. Clone the webrtc repo
 
@@ -13,8 +11,13 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 0. cd into the newly cloned repo
 
     `cd WEBRTC-to-SIP/`
+    
+0. Borrow stuff, incorporate into sipgate repo. Then send a pull request to the WEB-RTC to replace that entire repo with this one, unless of course, if this one is even worse!
 
-0. Use lets-ecrypt to get a signed cert
+
+### Install certbot
+------
+1. Use lets-ecrypt to get a signed cert
 
     `sudo apt-get install certbot`
 
