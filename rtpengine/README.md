@@ -2,6 +2,7 @@
 
 Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/README.md) for the source document of steps that mostly work. Corrections listed here.
 
+
 ### Parts of the WEB-RTC repo are usable (for now)
 
 1. Clone the webrtc repo
@@ -11,9 +12,22 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 0. cd into the newly cloned repo
 
     `cd WEBRTC-to-SIP/`
-    
-0. Borrow stuff, incorporate into sipgate repo. Then send a pull request to the WEB-RTC to replace that entire repo with this one, unless of course, if this one is even worse!
 
+0. Replace the *"6x-6x"* pattern in all files with your server's IPv6 address.
+
+    `find . -type f -print0 | xargs -0 sed -i 's/XXXXXX-XXXXXX/fe80::20c:29ff:fed9:ba61/g'`
+
+0. Replace the *"5x-5x"* pattern in all files with your server's IP address
+
+    `find . -type f -print0 | xargs -0 sed -i 's/XXXXX-XXXXX/10.16.1.198/g'`
+
+0. Replace the *"4x-4x"* in all files with your server's domain name.
+
+    `find . -type f -print0 | xargs -0 sed -i 's/XXXX-XXXX/sip.alta3.com/g'`
+
+0. cd back to home
+
+    `cd`
 
 ### Install certbot
 ------
@@ -33,28 +47,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `sudo cat /etc/letsencrypt/live/sip.alta3.com/fullchain.pem`
 
-### This section needs work to replace a bash version of an ansible template
-----
 
-1. CD into the repo
-
-    `cd WEBRTC-to-SIP/`
-
-0. Replace the xxx's with your server's IP address
-
-    `find . -type f -print0 | xargs -0 sed -i 's/XXXXX-XXXXX/10.16.1.198/g'`
-
-0. Replace the "xxx's with your server's IPv6 address
-
-    `find . -type f -print0 | xargs -0 sed -i 's/XXXXXX-XXXXXX/fe80::20c:29ff:fed9:ba61/g'`
-
-0. Replace the "xxx's with your server's domain name.
-
-    `find . -type f -print0 | xargs -0 sed -i 's/XXXX-XXXX/sip.alta3.com/g'`
-
-0. cd back to home
-
-    `cd`
 
 ### Install rtpengine
 -----
