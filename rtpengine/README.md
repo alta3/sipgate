@@ -1,7 +1,10 @@
 # Install WEB-RTC using Kamailion on ubuntu 18.04
 
+Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/README.md) for the source document of steps that mostly work. Corrections listed here.
 
-0. Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/README.md) for the source document of steps that mostly work. Corrections listed here.
+
+### Install certbot
+------
 
 0. Clone the webrtc repo
 
@@ -26,6 +29,8 @@
 0. Admire your new chain of keys
 
     `sudo cat /etc/letsencrypt/live/sip.alta3.com/fullchain.pem`
+
+### This section needs work to replace a bash version of an ansible template
 
 0. CD into the repo
 
