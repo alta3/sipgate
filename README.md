@@ -2,18 +2,18 @@
 
 **sipgate requires the following services:**
 
-- A sipgate server, with a single interface in the alt3 services subnet `10.1.16.0/24`
-- A valid domain `sip.alta3.com`
-- A valid certificate `lets-encrypt`
-- A js SIP client
-- NGINX to serve the js SIP client
-- Kamailio Secure Web socket to SIP gateway `WSS to SIP`
-- A turn server for NAT traversal
-- A SIP target to call. `asterisk server`
+1. A sipgate server, with a single interface in the alt3 services subnet `10.1.16.0/24`
+2. A valid domain `sip.alta3.com`
+3. A valid certificate `lets-encrypt`
+4. A js SIP client
+5. NGINX to serve the js SIP client
+6. Kamailio Secure Web socket to SIP gateway `WSS to SIP`
+7. A turn server for NAT traversal
+8. A SIP target to call. `asterisk server`
 
 
 ----
-### sipgate server
+### 1 sipgate server
 hostname: `sipgate`  
 subnet:  `10.1.16.0/24`  
 vlan: `1601`  
@@ -23,13 +23,13 @@ mem: `8G`
 storage `100G`  
 
 ----
-### FQDN
+### 2 SIP Domain
 1. area 53 dns is resolving `sip.alta3.com` to `71.251.147.236`
 
 0. The cloud pfsense is forwarding 5060 and RTP ports to the sipgate server
 
 ----
-### Install certbot
+### 3 TLS cert
 1. Use lets-ecrypt to get a signed cert
 
     `sudo apt-get install certbot`
