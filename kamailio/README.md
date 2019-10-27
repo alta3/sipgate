@@ -90,7 +90,7 @@ Begin
 
     `sudo cp  ~/sipgate/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg`
 
-0. Create the database. 
+0. Create the database. Answer `y` to all questions. It is possible to edit the kamdbctl script and hard-code the answers, but not now.
 
     `sudo /usr/local/sbin/kamdbctl create`
 
@@ -126,7 +126,7 @@ Begin
 
 0. Copy kamailio.init to /etc/init.d
 
-    `sudo cp ~/siplabcreater/kamailio/kamailio.init   /etc/init.d/kamailio`
+    `sudo cp ~/sipgate/kamailio/kamailio.init   /etc/init.d/kamailio`
 
 0. Don't forget to set the permissions:
 
@@ -134,7 +134,7 @@ Begin
 
 0. Copy (and rename) kamailio.defaults file to /etc/defaults/kamailio
 
-    `sudo cp ~/siplabcreater/kamailio/kamailio.default   /etc/default/kamailio`
+    `sudo cp ~/sipgate/kamailio/kamailio.default   /etc/default/kamailio`
 
 0. Edit defaults file to run RUN_KAMAILIO=yes (simply uncomment)
 
