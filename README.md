@@ -1,6 +1,6 @@
 # sipgate
 
-sipgate requires the following services:
+**sipgate requires the following services:**
 
 - A sipgate server, with a single interface in the alt3 services subnet `10.1.16.0/24`
 - A valid domain `sip.alta3.com`
@@ -12,10 +12,19 @@ sipgate requires the following services:
 - A SIP target to call. `asterisk server`
 
 ### FQDN
-
+----
 1. area 53 dns is resolving sip.alta3.com to 71.251.147.236
 
-0. pfsense is forwarding 5060 and RTP ports to the sipgrate server
+0. pfsense is forwarding 5060 and RTP ports to the sipgate server
+<br>
+<br>
+### sipgate server
+----
+hostname: `sipgate`  
+ip addr: `sipgate.localdomain`  
+cores: `4`  
+mem: `8G`  
+storage `100G`  
 
 
 ### Install certbot
