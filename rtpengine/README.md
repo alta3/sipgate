@@ -31,6 +31,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
     `sudo cat /etc/letsencrypt/live/sip.alta3.com/fullchain.pem`
 
 ### This section needs work to replace a bash version of an ansible template
+----
 
 0. CD into the repo
 
@@ -53,6 +54,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
     `cd`
 
 ### Install rtpengine
+-----
 
 0. [Source info](https://nickvsnetworking.com/rtpengine-installation-configuration/) that needed tweaking to make this section work: 
 
