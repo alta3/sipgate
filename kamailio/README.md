@@ -2,7 +2,7 @@
 
 **The password *kam12345* is used as an example. OK to try it for testing, but NO WAY do you let that password make it to production!**
 
-Source files are in: ~/siplabcreater/kamailio  
+Source files are in: ~/sipgate/kamailio  
 Work directory is:   ~/github/kamailio
 
 1. Install the dependencies
