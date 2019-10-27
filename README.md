@@ -11,15 +11,14 @@
 - A turn server for NAT traversal
 - A SIP target to call. `asterisk server`
 
-### FQDN
 ----
+### FQDN
 1. area 53 dns is resolving sip.alta3.com to 71.251.147.236
 
 0. pfsense is forwarding 5060 and RTP ports to the sipgate server
-<br>
-<br>
-### sipgate server
+
 ----
+### sipgate server
 hostname: `sipgate`  
 ip addr: `sipgate.localdomain`  
 cores: `4`  
@@ -27,8 +26,8 @@ mem: `8G`
 storage `100G`  
 
 
+----
 ### Install certbot
-------
 1. Use lets-ecrypt to get a signed cert
 
     `sudo apt-get install certbot`
