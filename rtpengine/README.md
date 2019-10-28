@@ -51,9 +51,22 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 ### Install rtpengine
 -----
-1. Fix broken systemd-timesyncd issue with ubuntu 18.04.
+1. The ubuntu ntp servers are too bogged down to respond to NTP. Point systemd-timesyncd to google NTP servers.
 
-    `sudo apt install htpdate`
+    `sudo vim /etc/systemd/timesyncd.conf`
+
+    `# /etc/systemd/timesyncd.conf`  
+    
+       [Time]
+       #NTP=
+       FallbackNTP=time.google.com
+       #RootDistanceMaxSec=5
+       #PollIntervalMinSec=32
+       #PollIntervalMaxSec=2048
+
+0. Restart timesyncd
+
+    `sudo systemctl restart systemd-timesyncd.service`
 
 0. Create a github directory.
 
