@@ -158,10 +158,14 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
     
         ubuntu   30202     1  0 21:25 pts/2    00:00:00 rtpengine   
 
-0. Stop rtpengine as follows:
+0. **Stop rtpengine** as follows:
 
-    `sudo pkill rtpengine` 
+    `sudo sudo systemctl stop ngcp-rtpengine-daemon` 
+    
+0. **Start rtpengine** as follows:
 
-0. Start rtpengine as follows:
+    `sudo systemctl start ngcp-rtpengine-daemon`
 
-    `sudo rtpengine` 
+0. **Restart rtpengine** as follows:
+
+    `sudo systemctl restart ngcp-rtpengine-daemon` 
