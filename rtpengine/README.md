@@ -55,8 +55,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `sudo vim /etc/systemd/timesyncd.conf`
 
-    `# /etc/systemd/timesyncd.conf`  
-    
+       # CONFIG /etc/systemd/timesyncd.conf
        [Time]
        #NTP=
        FallbackNTP=time.google.com
