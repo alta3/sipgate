@@ -51,6 +51,9 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 ### Install rtpengine
 -----
+1. Fix broken systemd-timesyncd issue with ubuntu 18.04.
+
+    `sudo apt install htpdate`
 
 1. [Source info](https://nickvsnetworking.com/rtpengine-installation-configuration/) that needed tweaking to make this section work: 
 
