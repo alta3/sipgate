@@ -117,14 +117,6 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `dpkg-buildpackage -us -uc -sa`  
 
-
-        unecessary steps in the discovery process to install init-system-helpers from Bionic backport
-        0. Install the deb packages, fix bug#924666 after they are installed. FIXED WITH sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb
-            `sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb` -
-        0. At this point, the current dpkg cannot handle "--skip-systemd-native", (Bug#924666: invoke-rc.d: syntax error: unknown option "--skip-systemd-native", so get rid of the issue...
-           `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.postinst`
-           `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.prerm`
-
 0. cd backwards one directory
 
     `cd ..`
