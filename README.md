@@ -8,8 +8,10 @@
 4. A js SIP client
 5. NGINX to serve the js SIP client
 6. Kamailio Secure Web socket to SIP gateway `WSS to SIP`
-7. A turn server for NAT traversal
-8. A SIP target to call. `asterisk server`
+7. siremix kamailio DB manager
+8. RTPengine RTP proxy 
+9. A turn server for NAT traversal
+10. A SIP target to call. `asterisk server`
 
 
 ----
@@ -89,7 +91,7 @@ storage `100G`
 
 
 ----
-### 7 coturn TURN Server 
+### 9 coturn TURN Server 
 
 0. Apt install coturn
 
