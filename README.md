@@ -46,6 +46,7 @@ storage `100G`
 
     `sudo cat /etc/letsencrypt/live/sip.alta3.com/fullchain.pem`
 
+----
 ### 4 - JS Client
 
 1. The [WEB-RTC repo](https://github.com/havfo/WEBRTC-to-SIP) says that [this client](https://github.com/havfo/SipCaller) is supposed to work. We shall see.
@@ -85,3 +86,40 @@ storage `100G`
 0. Restart nginx
 
     `service nginx restart`
+
+
+----
+### 7 coturn TURN Server 
+
+0. Apt install coturn
+
+    `apt-get install coturn`
+
+0. Edit /etc/default/coturn
+
+    `sudo vim /etc/default/coturn`
+    
+        # Uncomment it if you want to have the turnserver running as
+        # an automatic system service daemon
+        #
+        TURNSERVER_ENABLED=1    
+
+0. edit /etc/turnserver.conf
+
+    `sudo vim  /etc/turnserver.conf`
+    
+       listening-ip=10.16.1.195
+       listening-ip=fe80::20c:29ff:fead:8b42
+       fingerprint
+       lt-cred-mech
+       user=websip:websip
+       realm=sip.alta3.com
+       log-file=/var/log/turn.log
+       simple-log
+       cert=/etc/letsencrypt/live/sip.alta3.com/fullchain.pem
+       pkey=/etc/letsencrypt/live/sip.alta3.com/privkey.pem
+
+0. Start the turn server
+
+    `service coturn restart`  
+    
