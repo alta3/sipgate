@@ -51,7 +51,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 ### Install rtpengine
 -----
-1. The ubuntu ntp servers are too bogged down to respond to NTP. Point systemd-timesyncd to google NTP servers.
+1. The ubuntu ntp servers are too bogged down to respond to NTP. Log fills up griping ubuntu ntp servers are unresponsive, so point systemd-timesyncd to google NTP servers.
 
     `sudo vim /etc/systemd/timesyncd.conf`
 
