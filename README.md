@@ -90,6 +90,20 @@ storage `100G`
 
     `service nginx restart`
 
+----
+### 5 - NGINX
+
+    `sudo apt install nginx`
+    
+    
+    
+    
+apt-get install nginx
+cd WEBRTC-to-SIP
+cp etc/nginx/nginx.conf /etc/nginx/
+cp etc/nginx/conf.d/default.conf /etc/nginx/conf.d/
+cp -r client/* /var/www/html/
+service nginx restart
 
 ----
 ### 9 - coturn TURN Server 
