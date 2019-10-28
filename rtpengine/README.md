@@ -76,7 +76,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 0. Install dependancies
 
 
-    `sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev`
+    `sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev`
 
 0. Load bash variable "$VER" to save typing....
 
@@ -118,15 +118,17 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `dpkg-buildpackage -us -uc -sa`  
 
-0. Install the deb packages, fix bug#924666 after they are installed.
 
-    `sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb` 
+        FIXED WITH by installing init-system-helpers from Bionic backport
+        0. Install the deb packages, fix bug#924666 after they are installed. FIXED WITH sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb
 
-0. At this point, the current dpkg cannot handle "--skip-systemd-native", (Bug#924666: invoke-rc.d: syntax error: unknown option "--skip-systemd-native", so get rid of the issue...
+            `sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb` -
 
-    `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.postinst`
+        0. At this point, the current dpkg cannot handle "--skip-systemd-native", (Bug#924666: invoke-rc.d: syntax error: unknown option "--skip-systemd-native", so get rid of the issue...
 
-    `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.prerm`
+           `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.postinst`
+
+           `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.prerm`
 
 0. cd backwards one directory
 
@@ -136,15 +138,15 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `sudo vim /etc/rtpengine/rtpengine.conf`
 
-        [rtpengine]
-        table = 0
-        interface = 10.16.1.195
-        listen-ng = 127.0.0.1:22222
-        timeout = 60
-        silent-timeout = 3600
-        tos = 184
-        port-min = 16384
-        port-max = 16485    
+       [rtpengine]
+       table = 0
+       interface = 10.16.1.195
+       listen-ng = 127.0.0.1:22222
+       timeout = 60
+       silent-timeout = 3600
+       tos = 184
+       port-min = 16384
+       port-max = 16485    
 
 0. Install the package you just created ...
 
@@ -155,10 +157,6 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
     `sudo ps -ef | grep [r]tpengine`
     
         ubuntu   30202     1  0 21:25 pts/2    00:00:00 rtpengine   
-
-0. Run apt install on nginx
-
-    `sudo apt install nginx`
 
 0. Stop rtpengine as follows:
 
