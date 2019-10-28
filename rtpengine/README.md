@@ -73,8 +73,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `cd rtpengine/`
 
-0. Install dependancies
-
+0. Install dependancies. There are TWO critcal backports included below. You must install the exact version specified to make rtpengine work.
 
     `sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev`
 
@@ -119,15 +118,11 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
     `dpkg-buildpackage -us -uc -sa`  
 
 
-        FIXED WITH by installing init-system-helpers from Bionic backport
+        unecessary steps in the discovery process to install init-system-helpers from Bionic backport
         0. Install the deb packages, fix bug#924666 after they are installed. FIXED WITH sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb
-
             `sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb` -
-
         0. At this point, the current dpkg cannot handle "--skip-systemd-native", (Bug#924666: invoke-rc.d: syntax error: unknown option "--skip-systemd-native", so get rid of the issue...
-
            `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.postinst`
-
            `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.prerm`
 
 0. cd backwards one directory
