@@ -93,13 +93,107 @@ storage `100G`
 ----
 ### 5 - NGINX
 
+0. Install nginx
+
     `sudo apt install nginx`
-    
-    
-    
-    
-apt-get install nginx
-cd WEBRTC-to-SIP
+
+0.  edit /etc/nginx/nginx.conf
+
+
+        user  nginx;
+        worker_processes  1;
+        error_log  /var/log/nginx/error.log warn;
+        pid        /var/run/nginx.pid;
+        events {
+            worker_connections  1024;
+        }
+        http {
+            include       /etc/nginx/mime.types;
+            default_type  application/octet-stream;
+            log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                              '$status $body_bytes_sent "$http_referer" '
+                              '"$http_user_agent" "$http_x_forwarded_for"';
+            access_log  /var/log/nginx/access.log  main;
+            sendfile        on;
+            #tcp_nopush     on;
+            keepalive_timeout  65;
+            #gzip  on;
+            include /etc/nginx/conf.d/*.conf;
+        }
+        stream {
+            log_format basic '$remote_addr [$time_local] '
+                             '$protocol $status $bytes_sent $bytes_received '
+                             '$session_time';
+            access_log  /var/log/nginx/stream.log basic;
+            error_log /var/log/nginx/stream-error.log debug;
+            upstream turns_ipv4_80 {
+                server 10.16.1.195:3479;
+            }
+            upstream http_ipv4_80 {
+                server 127.0.0.1:3480;
+            }
+            map $ssl_preread_protocol $upstream_ipv4_80 {
+                default turns_ipv4_80;
+                "" http_ipv4_80;
+            }
+            upstream turns_ipv6_80 {
+                server [fe80::20c:29ff:fead:8b42]:3479;
+            }
+            upstream http_ipv6_80 {
+                server [::1]:3480;
+            }
+            map $ssl_preread_protocol $upstream_ipv6_80 {
+                default turns_ipv6_80;
+                "" http_ipv6_80;
+            }
+            upstream turn_ipv4_443 {
+                server 10.16.1.195:3478;
+            }
+            upstream https_ipv4_443 {
+                server 127.0.0.1:3443;
+            }
+            map $ssl_preread_protocol $upstream_ipv4_443 {
+                default https_ipv4_443;
+                "" turn_ipv4_443;
+            }
+            upstream turn_ipv6_443 {
+                server [fe80::20c:29ff:fead:8b42]:3478;
+            }
+            upstream https_ipv6_443 {
+                server [::1]:3443;
+            }
+            map $ssl_preread_protocol $upstream_ipv6_443 {
+                default https_ipv6_443;
+                "" turn_ipv6_443;
+            }
+            server {
+                listen 80;
+                proxy_pass $upstream_ipv4_80;
+                ssl_preread on;
+                proxy_buffer_size 16k;
+            }
+            server {
+                listen [::]:80;
+                proxy_pass $upstream_ipv6_80;
+                ssl_preread on;
+                proxy_buffer_size 16k;
+            }
+            server {
+                listen 443;
+                proxy_pass $upstream_ipv4_443;
+                ssl_preread on;
+                proxy_buffer_size 16k;
+            }
+            server {
+                listen [::]:443;
+                proxy_pass $upstream_ipv6_443;
+                ssl_preread on;
+                proxy_buffer_size 16k;
+            }
+        }
+
+
+
 cp etc/nginx/nginx.conf /etc/nginx/
 cp etc/nginx/conf.d/default.conf /etc/nginx/conf.d/
 cp -r client/* /var/www/html/
