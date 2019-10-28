@@ -55,7 +55,15 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `sudo apt install htpdate`
 
-1. [Source info](https://nickvsnetworking.com/rtpengine-installation-configuration/) that needed tweaking to make this section work: 
+0. Create a github directory.
+
+    `mkdir -p ~/github`
+    
+0. [Source info](https://nickvsnetworking.com/rtpengine-installation-configuration/) that needed tweaking to make this section work: 
+
+0. cd into ~/github
+
+    `cd ~/github`
 
 0. clone rtpengine repo
 
@@ -92,7 +100,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 0. Create the package
 
-    `sudo dpkg-buildpackage -us -uc -sa`
+    `dpkg-buildpackage -us -uc -sa`
 
 0. cd backwards one directory
 
@@ -100,7 +108,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 0. Create the G729 package.
 
-    `dpkg -i libbcg729-*.deb`
+    `sudo dpkg -i libbcg729-*.deb`
     
 0. Check to see if all the dependancies have been met. Should be empty!
 
@@ -110,7 +118,9 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `dpkg-buildpackage -us -uc -sa`  
 
+0. Install the deb packages, fix bug#924666 after they are installed.
 
+    `sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb` 
 
 0. At this point, the current dpkg cannot handle "--skip-systemd-native", (Bug#924666: invoke-rc.d: syntax error: unknown option "--skip-systemd-native", so get rid of the issue...
 
@@ -122,11 +132,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `cd ..`
 
-0. Create the config directory
-
-    `sudo mkdir -p /etc/rtpengine
-    
-0. Edit /etc/rtpengine/rtpengine.conf. Above FAILS without this config in place.
+0. Edit /etc/rtpengine/rtpengine.conf. Startup FAILS without this config in place.
 
     `sudo vim /etc/rtpengine/rtpengine.conf`
 
