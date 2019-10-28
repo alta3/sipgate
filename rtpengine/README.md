@@ -155,7 +155,11 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
     `sudo ps -ef | grep [r]tpengine`
     
         ubuntu   30202     1  0 21:25 pts/2    00:00:00 rtpengine   
-        
+
+0. Run apt install on nginx
+
+    `sudo apt install nginx`
+
 0. Stop rtpengine as follows:
 
     `sudo pkill rtpengine` 
