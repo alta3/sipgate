@@ -108,7 +108,15 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 0. Start building the packages using flags that generate unsigned deb files for local use. This takes five minutes, so find something else to do.
 
-    `dpkg-buildpackage -us -uc -sa`
+    `dpkg-buildpackage -us -uc -sa`  
+
+
+
+0. At this point, the current dpkg cannot handle "--skip-systemd-native", (Bug#924666: invoke-rc.d: syntax error: unknown option "--skip-systemd-native", so get rid of the issue...
+
+    `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.postinst`
+
+    `sudo sed -i -e 's/--skip-systemd-native//g' /var/lib/dpkg/info/ngcp-rtpengine-daemon.prerm`
 
 0. cd backwards one directory
 
