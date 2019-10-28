@@ -9,8 +9,8 @@
 5. NGINX to serve the js SIP client
 6. Kamailio Secure Web socket to SIP gateway `WSS to SIP`
 7. siremix kamailio DB manager
-8. RTPengine RTP proxy 
-9. A turn server for NAT traversal
+8. NAT Traversal RTP proxy `rtpengine`
+9. A turn server for NAT traversal  `coturn`
 10. A SIP target to call. `asterisk server`
 
 
