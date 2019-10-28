@@ -164,3 +164,6 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `sudo pkill rtpengine` 
 
+0. Start rtpengine as follows:
+
+    `sudo rtpengine` 
