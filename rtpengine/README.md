@@ -57,7 +57,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
        # CONFIG /etc/systemd/timesyncd.conf
        [Time]
-       #NTP=
+       NTP=time.google.com
        FallbackNTP=time.google.com
        #RootDistanceMaxSec=5
        #PollIntervalMinSec=32
