@@ -29,24 +29,6 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `cd`
 
-### Install certbot
-------
-1. Use lets-ecrypt to get a signed cert
-
-    `sudo apt-get install -y certbot`
-
-0. Tell certbot to create a cert.
-
-    `sudo certbot certonly --standalone -d sip.alta3.com`
-
-0. Admire your new key.
-
-    `sudo cat /etc/letsencrypt/live/sip.alta3.com/privkey.pem`
-
-0. Admire your new chain of keys
-
-    `sudo cat /etc/letsencrypt/live/sip.alta3.com/fullchain.pem`
-
 
 
 ### Install ngcp-rtpengine  
