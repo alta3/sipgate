@@ -4,7 +4,7 @@
 
 1. A sipgate server, with a single interface in the alt3 services subnet `10.1.16.0/24`
 2. A valid domain `sip.alta3.com`
-3. A valid certificate `lets-encrypt`
+3. A SSL certificate `lets-encrypt`
 4. A js SIP client
 5. NGINX to serve the js SIP client
 6. Kamailio Secure Web socket to SIP gateway `WSS to SIP`
@@ -31,7 +31,7 @@ storage `100G`
 0. The cloud pfsense is forwarding 5060 and RTP ports to the sipgate server
 
 ----
-### 3 - TLS cert
+### 3 - SSL certificate
 
 1. Use lets-ecrypt to get a signed cert
 
