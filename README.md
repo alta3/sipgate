@@ -32,9 +32,10 @@ storage `100G`
 
 ----
 ### 3 - TLS cert
+
 1. Use lets-ecrypt to get a signed cert
 
-    `sudo apt-get install certbot`
+    `sudo apt-get -y install certbot`
 
 0. Tell certbot to create a cert.
 
