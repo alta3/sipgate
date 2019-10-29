@@ -92,16 +92,122 @@ storage `100G`
 
 ----
 ### 5 - NGINX
-1. Install user nginx
+0. apt install dependancies
+
+    `sudo apt install -y build-essential tree perl libperl-dev libgd3 libgd-dev libgeoip1 libgeoip-dev geoip-bin libxml2 libxml2-dev libxslt1.1 libxslt1-dev` 
+
+0. Install user nginx
 
     `sudo adduser --system --no-create-home --shell /bin/false --group --disabled-login nginx`
 
-0. Install nginx
+0. Install nginx from source, we need modules avaible only by compiling. Download the tarballs...
 
-    `sudo apt -y install nginx`
+    `wget https://nginx.org/download/http://nginx.org/download/nginx-1.16.1.tar.gz && tar zxvf http://nginx.org/download/nginx-1.16.1.tar.gz`
+    
+ 0. Download PCRE version 8.42
+ 
+    `wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz && tar xzvf pcre-8.42.tar.gz`
+    
+0. Download zlib version 1.2.11
+
+    `wget https://www.zlib.net/zlib-1.2.11.tar.gz && tar xzvf zlib-1.2.11.tar.gz`
+
+0. Download OpenSSL version 1.1.0h
+
+    `wget https://www.openssl.org/source/openssl-1.1.0h.tar.gz && tar xzvf openssl-1.1.0h.tar.gz`  
+
+0. Remove the tarballs as they are no longer needed.
+
+    `rm -rf *.tar.gz`
+
+0. cd into nginx-1.16.1
+
+    `cd ~/nginx-1.16.1`
+
+0. Copy NGINX manual page to /usr/share/man/man8/ directory
+
+   `sudo cp ~/nginx-1.16.1/man/nginx.8 /usr/share/man/man8`
+   
+   `sudo gzip /usr/share/man/man8/nginx.8`
+   
+   `ls /usr/share/man/man8/ | grep nginx.8.gz`
+   
+0. man page working?
+
+    `man nginx`
+    
+0. Build the whole nine yards. The following is ONE LINE OF CODE ....
+
+    `./configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --user=nginx --group=nginx --build=Ubuntu --builddir=nginx-1.16.1 --with-select_module --with-poll_module --with-threads --with-file-aio --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module=dynamic --with-http_image_filter_module=dynamic --with-http_geoip_module=dynamic --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_auth_request_module --with-http_random_index_module \
+--with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module --with-http_perl_module=dynamic --with-perl_modules_path=/usr/share/perl/5.26.1 --with-perl=/usr/bin/perl --http-log-path=/var/log/nginx/access.log --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --with-mail=dynamic --with-mail_ssl_module --with-stream=dynamic --with-stream_ssl_module --with-stream_realip_module --with-stream_geoip_module=dynamic --with-stream_ssl_preread_module --with-compat --with-pcre=../pcre-8.42 --with-pcre-jit --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.0h --with-openssl-opt=no-nextprotoneg --with-debug`
+
+0. Run make
+
+    `make`
+    
+0. run make install
+
+    `sudo make install`
+
+0. cd back to the home directory
+    
+    `cd`
+
+0. Checkout the version you just installed
+
+    `sudo nginx -V`
+
+0. create the ngix user
+
+    `sudo adduser --system --home /nonexistent --shell /bin/false --no-create-home --disabled-login --disabled-password --gecos "nginx user" --group nginx`
+
+0. Check NGINX syntax and potential errors
+
+    `sudo nginx -t`
+
+
+0. Create NGINX directories and set permissions
+
+    `sudo mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/proxy_temp /var/cache/nginx/scgi_temp /var/cache/nginx/uwsgi_temp`
+
+    `sudo chmod 700 /var/cache/nginx/*`
+
+    `sudo chown nginx:root /var/cache/nginx/*`
+
+0. Create NGINX systemd unit file.
+
+    `sudo vim /etc/systemd/system/nginx.service`
+
+       [Unit]
+       Description=nginx - high performance web server
+       Documentation=https://nginx.org/en/docs/
+       After=network-online.target remote-fs.target nss-lookup.target
+       Wants=network-online.target
+
+       [Service]
+       Type=forking
+       PIDFile=/var/run/nginx.pid
+       ExecStartPre=/usr/sbin/nginx -t -c /etc/nginx/nginx.conf
+       ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
+       ExecReload=/bin/kill -s HUP $MAINPID
+       ExecStop=/bin/kill -s TERM $MAINPID
+       
+       [Install]
+       WantedBy=multi-user.target
+
+0. Enable NGINX to start on boot and start NGINX immediately.
+
+    `sudo systemctl enable nginx.service`
+    
+    `sudo systemctl start nginx.service`
+
+0. Check if NGINX will automatically initiate after a reboot.
+
+    `sudo systemctl is-enabled nginx.service`
+    
+       # enabled
 
 0.  edit /etc/nginx/nginx.conf
-
 
     `sudo vim /etc/nginx/nginx.conf`
     
