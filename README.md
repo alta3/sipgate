@@ -95,7 +95,7 @@ storage `100G`
 
 1. Install nginx
 
-    `sudo apt install nginx`
+    `sudo apt -y install nginx`
 
 0.  edit /etc/nginx/nginx.conf
 
