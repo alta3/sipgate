@@ -198,7 +198,7 @@ storage `100G`
 
 0. edit /etc/nginx/conf.d/default.conf
 
-    `sudo vim /etc/nginx/conf.d/
+    `sudo vim /etc/nginx/conf.d/default.conf`
 
 
        server_tokens off;
