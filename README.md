@@ -109,6 +109,7 @@ storage `100G`
         worker_processes  1;
         error_log  /var/log/nginx/error.log warn;
         pid        /var/run/nginx.pid;
+        load_module /usr/lib/nginx/modules/ngx_stream_module.so;
         events {
             worker_connections  1024;
         }
@@ -265,10 +266,16 @@ storage `100G`
            }
        }
 
+0. Test config with the following command
 
-    
+    `nginx -c /etc/nginx/nginx.conf -t`
+
+0. copy sipJS clinet to its directory
+
     `cp -r client/* /var/www/html/`
-    
+
+0. Restart nginx
+
     `service nginx restart`
 
 ### 8 - Install ngcp-rtpengine  
