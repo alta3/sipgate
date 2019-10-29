@@ -92,8 +92,11 @@ storage `100G`
 
 ----
 ### 5 - NGINX
+1. Install user nginx
 
-1. Install nginx
+    `sudo adduser --system --no-create-home --shell /bin/false --group --disabled-login nginx`
+
+0. Install nginx
 
     `sudo apt -y install nginx`
 
@@ -264,8 +267,9 @@ storage `100G`
 
 
     
-cp -r client/* /var/www/html/
-service nginx restart
+    `cp -r client/* /var/www/html/`
+    
+    `service nginx restart`
 
 ### 8 - Install ngcp-rtpengine  
 > ngcp stands for next generation communication platform. It is limited to handing RTP, but can transcode, NAT RELAY, and reocrd voice. 
