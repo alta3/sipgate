@@ -504,6 +504,10 @@ storage `100G`
 
     `cd ..`
 
+0. Set up rtpengine config ahead of the install
+
+    `sudo mkdir -p /etc/rtpengine`
+
 0. Edit /etc/rtpengine/rtpengine.conf. Startup FAILS without this config in place.
 
     `sudo vim /etc/rtpengine/rtpengine.conf`
@@ -546,7 +550,7 @@ storage `100G`
 
 0. Apt install coturn
 
-    `apt-get install coturn`
+    `sudo apt-get install -y coturn`
 
 0. Edit /etc/default/coturn
 
@@ -574,5 +578,5 @@ storage `100G`
 
 0. Start the turn server
 
-    `service coturn restart`  
+    `sudo service coturn restart`  
     
