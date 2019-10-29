@@ -99,6 +99,9 @@ storage `100G`
 
 0.  edit /etc/nginx/nginx.conf
 
+
+    `sudo vim /etc/nginx/nginx.conf`
+    
         user  nginx;
         worker_processes  1;
         error_log  /var/log/nginx/error.log warn;
@@ -214,7 +217,7 @@ storage `100G`
        }
        server {
            listen 443 ssl http2;
-           server_name _;
+           server_name sip.alta3.com;
            root /var/www/html;
            index index.html index.htm;
            ssl_certificate /etc/letsencrypt/live/XXXX-XXXX/fullchain.pem;
@@ -237,7 +240,7 @@ storage `100G`
        }
        server {
            listen [::]:443 ssl http2;
-           server_name _;
+           server_name sip.alta3.com;
            root /var/www/html;
            index index.html index.htm;
            ssl_certificate /etc/letsencrypt/live/XXXX-XXXX/fullchain.pem;
