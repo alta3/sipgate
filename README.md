@@ -52,9 +52,15 @@ storage `100G`
 ----
 ### 4 - JS Client
 
-1. The [WEB-RTC repo](https://github.com/havfo/WEBRTC-to-SIP) says that [this client](https://github.com/havfo/SipCaller) is supposed to work. We shall see.
+1. clone the repo that inspired sipgate ---> [WEB-RTC repo](https://github.com/havfo/WEBRTC-to-SIP)
 
-0. Install sip js client
+    `git clone https://github.com/havfo/WEBRTC-to-SIP.git`
+
+0. cd into the repo
+
+    `cd WEBRTC-to-SIP`
+
+0. Install sip js client. [Tthis client](https://github.com/havfo/SipCaller) is what you are installing
 
     `cp -r client/* /var/www/html/`
 
