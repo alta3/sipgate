@@ -54,41 +54,27 @@ storage `100G`
 
 1. The [WEB-RTC repo](https://github.com/havfo/WEBRTC-to-SIP) says that [this client](https://github.com/havfo/SipCaller) is supposed to work. We shall see.
 
-0. Get a really old version of nginx (why?)
-
-    `echo 'deb http://nginx.org/packages/mainline/debian/ stretch nginx' > /etc/apt/sources.list.d/nginx.list`
-
-0. get the key to access this nginx version curl (why?)
-
-    `curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add -`
-
-0. update
-
-    `apt-get update`
-
-0. Get the stretc version of nginx
-
-    `apt-get install nginx`
-
-0. cd into the repo
-
-    `cd WEBRTC-to-SIP`
-
-0. copy the nginx config file to the running directory
-
-    `cp etc/nginx/nginx.conf /etc/nginx/`
-
-0. Move more nginx config
-
-    `cp etc/nginx/conf.d/default.conf /etc/nginx/conf.d/`
-    
-0. Install client
+0. Install sip js client
 
     `cp -r client/* /var/www/html/`
-    
-0. Restart nginx
 
-    `service nginx restart`
+0. vim turn config file
+
+    `sudo vim /var/www/html/config.js`
+
+       var iceServers = [
+               {
+                  urls       : 'turn:sip.alta3.com:443?transport=tcp',
+                  username   : 'websip',
+                  credential : 'websip'
+               },
+               {
+                  urls       : 'turns:sip.alta3.com:80?transport=tcp',
+                  username   : 'websip',
+                  credential : 'websip'
+               }
+       ];
+
 
 ----
 ### 5 - NGINX
