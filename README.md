@@ -220,8 +220,8 @@ storage `100G`
            server_name sip.alta3.com;
            root /var/www/html;
            index index.html index.htm;
-           ssl_certificate /etc/letsencrypt/live/XXXX-XXXX/fullchain.pem;
-           ssl_certificate_key /etc/letsencrypt/live/XXXX-XXXX/privkey.pem;
+           ssl_certificate /etc/letsencrypt/live/sip.alta3.com/fullchain.pem;
+           ssl_certificate_key /etc/letsencrypt/live/sip.alta3.com/privkey.pem;
            ssl_session_cache shared:SSL:50m;
            ssl_session_timeout 1d;
            ssl_session_tickets off;
@@ -243,8 +243,8 @@ storage `100G`
            server_name sip.alta3.com;
            root /var/www/html;
            index index.html index.htm;
-           ssl_certificate /etc/letsencrypt/live/XXXX-XXXX/fullchain.pem;
-           ssl_certificate_key /etc/letsencrypt/live/XXXX-XXXX/privkey.pem;
+           ssl_certificate /etc/letsencrypt/live/sip.alta3.com/fullchain.pem;
+           ssl_certificate_key /etc/letsencrypt/live/sip.alta3.com/privkey.pem;
            ssl_session_cache shared:SSL:50m;
            ssl_session_timeout 1d;
            ssl_session_tickets off;
