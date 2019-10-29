@@ -199,10 +199,9 @@ storage `100G`
     
        # enabled
 
-0.  edit /etc/nginx/nginx.conf
+0. edit /etc/nginx/nginx.conf
 
-    `sudo vim /etc/nginx/nginx.conf`
-
+    `sudo vim /etc/nginx/nginx.conf`  
 
        user  nginx;
        worker_processes  1;
