@@ -29,30 +29,36 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `cd`
 
-### Install certbot
-------
-1. Use lets-ecrypt to get a signed cert
-
-    `sudo apt-get install certbot`
-
-0. Tell certbot to create a cert.
-
-    `sudo certbot certonly --standalone -d sip.alta3.com`
-
-0. Admire your new key.
-
-    `sudo cat /etc/letsencrypt/live/sip.alta3.com/privkey.pem`
-
-0. Admire your new chain of keys
-
-    `sudo cat /etc/letsencrypt/live/sip.alta3.com/fullchain.pem`
 
 
-
-### Install rtpengine
+### Install ngcp-rtpengine  
+> ngcp stands for next generation communication platform. It is limited to handing RTP, but can transcode, NAT RELAY, and reocrd voice. 
 -----
+1. The ubuntu ntp servers are too bogged down to respond to NTP. Log fills up griping ubuntu ntp servers are unresponsive, so point systemd-timesyncd to google NTP servers.
 
-1. [Source info](https://nickvsnetworking.com/rtpengine-installation-configuration/) that needed tweaking to make this section work: 
+    `sudo vim /etc/systemd/timesyncd.conf`
+
+       # CONFIG /etc/systemd/timesyncd.conf
+       [Time]
+       NTP=time.google.com
+       FallbackNTP=time.google.com
+       #RootDistanceMaxSec=5
+       #PollIntervalMinSec=32
+       #PollIntervalMaxSec=2048
+
+0. Restart timesyncd
+
+    `sudo systemctl restart systemd-timesyncd.service`
+
+0. Create a github directory.
+
+    `mkdir -p ~/github`
+    
+0. [Source info](https://nickvsnetworking.com/rtpengine-installation-configuration/) that needed tweaking to make this section work: 
+
+0. cd into ~/github
+
+    `cd ~/github`
 
 0. clone rtpengine repo
 
@@ -62,10 +68,9 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `cd rtpengine/`
 
-0. Install dependancies
+0. Install dependancies. There are TWO critcal backports included below. You must install the exact version specified to make rtpengine work.
 
-
-    `sudo apt-get install debhelper=12.1.1ubuntu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev`
+    `sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev`
 
 0. Load bash variable "$VER" to save typing....
 
@@ -97,35 +102,53 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 0. Create the G729 package.
 
-    `dpkg -i libbcg729-*.deb`
+    `sudo dpkg -i libbcg729-*.deb`
     
 0. Check to see if all the dependancies have been met. Should be empty!
 
     `dpkg-checkbuilddeps`
 
-0. Start building the packages using flags that generate unsigned deb files for local use.
+0. Start building the packages using flags that generate unsigned deb files for local use. This takes five minutes, so find something else to do.
 
-    `dpkg-buildpackage -b -uc -us`
+    `dpkg-buildpackage -us -uc -sa`  
 
 0. cd backwards one directory
 
     `cd ..`
 
+0. Edit /etc/rtpengine/rtpengine.conf. Startup FAILS without this config in place.
+
+    `sudo vim /etc/rtpengine/rtpengine.conf`
+
+       [rtpengine]
+       table = 0
+       # Use YOUR IP ADDRESS HERE not this one!
+       interface = 10.16.1.195
+       listen-ng = 127.0.0.1:22222
+       timeout = 60
+       silent-timeout = 3600
+       tos = 184
+       port-min = 16384
+       port-max = 16485    
+
 0. Install the package you just created ...
 
     `sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb`
 
-0. Edit /etc/rtpengine/rtpengine.conf
+0. Check if one instance of rtpengine is running
 
-    `sudo vim rtpengine/rtpengine.conf`
+    `sudo ps -ef | grep [r]tpengine`
+    
+        ubuntu   30202     1  0 21:25 pts/2    00:00:00 rtpengine   
 
-        [rtpengine]
-        table = 0
-        interface = 10.16.1.198
-        listen-ng = 127.0.0.1:22222
-        timeout = 60
-        silent-timeout = 3600
-        tos = 184
-        port-min = 16384
-        port-max = 16485
+0. **Stop rtpengine** as follows:
 
+    `sudo sudo systemctl stop ngcp-rtpengine-daemon` 
+    
+0. **Start rtpengine** as follows:
+
+    `sudo systemctl start ngcp-rtpengine-daemon`
+
+0. **Restart rtpengine** as follows:
+
+    `sudo systemctl restart ngcp-rtpengine-daemon` 

@@ -14,7 +14,7 @@ Begin
 
 0. Secure the mysql installation (this is a mysql parameter)
 
-    `sudo mysql_secure_installation`
+    `sudo mysql_secure_installation  --user=root --password=kam12345  --use-default`
 
 0. Create directory
 
@@ -26,7 +26,7 @@ Begin
 
 0. Clone the kamailio REPO
 
-    `sudo git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio`
+    `git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio`
 
 0. cd into the new git repo
 
@@ -34,7 +34,7 @@ Begin
 
 0. drop back to 5.1
 
-    `sudo git checkout -b 5.1 origin/5.1` 
+    `git checkout -b 5.1 origin/5.1` 
 
 0. Generate build config files
 
@@ -58,11 +58,11 @@ Begin
 
 0. Install kamailio
 
-    `sudo make install 
+    `sudo make install` 
 
 0.  Edit the kamctlrc file changing user passwords and adding DBENGINE=MYSQL Should already be done.
 
-    `sudo vim ~/sipgate/kamailio/kamctlrc`  
+    `vim ~/sipgate/kamailio/kamctlrc`  
 
         SIP_DOMAIN=sip.alta3.com
         DBENGINE=MYSQL
@@ -88,11 +88,31 @@ Begin
         # #!define WITH_USRLOCDB
         # =============================================
 
-    `sudo cp  ~/siplabcreater/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg`
+    `sudo cp  ~/sipgate/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg`
 
-0. Create the database
+0. Create the database. Answer `y` to all questions. It is possible to edit the kamdbctl script and hard-code the answers, but not now.
 
     `sudo /usr/local/sbin/kamdbctl create`
+
+        FYI: mysql: [Warning]'s have been removed for clarity...
+        INFO: test server charset
+        INFO: creating database kamailio ...
+        INFO: granting privileges to database kamailio ...
+        INFO: creating standard tables into kamailio ...
+        INFO: Core Kamailio tables succesfully created.
+        Install presence related tables? (y/n): y     <-- answer "y"
+        INFO: creating presence tables into kamailio ...
+        INFO: Presence tables succesfully created.
+        Install tables for imc cpl siptrace domainpolicy carrierroute
+                        drouting userblacklist htable purple uac pipelimit mtree sca mohqueue
+                        rtpproxy rtpengine? (y/n): y  <-- answer "y"
+        INFO: creating extra tables into kamailio ...
+        INFO: Extra tables succesfully created.
+        Install tables for uid_auth_db uid_avp_db uid_domain uid_gflags
+                        uid_uri_db? (y/n): y          <-- answer "y"
+        INFO: creating uid tables into kamailio ...
+        INFO: UID tables succesfully created.
+
 
 0. Edit kamailio.cfg file {{IP ADDR, etc}}
 
@@ -106,7 +126,7 @@ Begin
 
 0. Copy kamailio.init to /etc/init.d
 
-    `sudo cp ~/siplabcreater/kamailio/kamailio.init   /etc/init.d/kamailio`
+    `sudo cp ~/sipgate/kamailio/kamailio.init   /etc/init.d/kamailio`
 
 0. Don't forget to set the permissions:
 
@@ -114,7 +134,7 @@ Begin
 
 0. Copy (and rename) kamailio.defaults file to /etc/defaults/kamailio
 
-    `sudo cp ~/siplabcreater/kamailio/kamailio.default   /etc/default/kamailio`
+    `sudo cp ~/sipgate/kamailio/kamailio.default   /etc/default/kamailio`
 
 0. Edit defaults file to run RUN_KAMAILIO=yes (simply uncomment)
 
