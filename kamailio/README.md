@@ -78,7 +78,7 @@ Begin
 
     `sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc`
 
-0. copy kamailio.cfg to the proper directory with edits. Edit line 123(ish) in this example assuming the password is "kam12345"
+0. copy (kamailio.cfg)[https://raw.githubusercontent.com/alta3/sipgate/master/kamailio/kamailio.cfg?token=ADITSNB6UVKCBCKN52WXEL25YMAL6] to the proper directory with edits. 
 
         #   #!define DBURL "mysql://kamailio:kam12345@localhost/kamailio"
         # in the #! section, enable the WITH_MYSQL compiler directives
