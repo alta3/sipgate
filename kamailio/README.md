@@ -78,15 +78,11 @@ Begin
 
     `sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc`
 
-0. **SKIP THIS STEP UNLESS** the above step fails, most likely do to password policy set too high, make these changes....
-
-    `mysql>` `SET GLOBAL validate_password_policy=LOW;`
-    
-    `mysql>` `ALTER USER 'root'@'localhost' IDENTIFIED BY 'kam12345';`
-    
-    `mysql>` `SHOW DATABASES;`
-    
-    `mysql>` `DROP DATABASE kamailio`
+    > If the above step fails, most likely do to password policy set too high, make these changes....  
+      `mysql>` `SET GLOBAL validate_password_policy=LOW;`  
+      `mysql>` `ALTER USER 'root'@'localhost' IDENTIFIED BY 'kam12345';`  
+      `mysql>` `SHOW DATABASES;`  
+      `mysql>` `DROP DATABASE kamailio`  
 
 0. copy [kamailio.cfg](https://raw.githubusercontent.com/alta3/sipgate/master/kamailio/kamailio.cfg?token=ADITSNB6UVKCBCKN52WXEL25YMAL6) to the proper directory with edits. 
 
