@@ -74,20 +74,19 @@ Begin
         DBROOTUSER="root"
         DBROOTPW="kam12345"
 
-        z# This file will be pushed to /usr/local/etc/kamailio/kamctlrc
-        SIP_DOMAIN=sip.alta3.com
-        DBENGINE=MYSQL
-        DBNAME=kamailio
-        DBRWUSER="kamailio"
-        DBRWPW="kam12345"
-        DBROUSER="kamailioro"
-        DBROPW="kam12345"
-        DBROOTUSER="root"
-        DBROOTPW="kam12345"
-
 0. Copy the kamctlrc file to the workspace.
 
     `sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc`
+
+0. **SKIP THIS STEP UNLESS** the above step fails, most likely do to password policy set too high, make these changes....
+
+    `mysql>` `SET GLOBAL validate_password_policy=LOW;`
+    
+    `mysql>` `ALTER USER 'root'@'localhost' IDENTIFIED BY 'kam12345';`
+    
+    `mysql>` `SHOW DATABASES;`
+    
+    `mysql>` `DROP DATABASE kamailio`
 
 0. copy [kamailio.cfg](https://raw.githubusercontent.com/alta3/sipgate/master/kamailio/kamailio.cfg?token=ADITSNB6UVKCBCKN52WXEL25YMAL6) to the proper directory with edits. 
 
@@ -136,7 +135,7 @@ Begin
 
         PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin
         DAEMON=/usr/local/sbin/kamailio
-        CFGFILE=/user/local/etc/kamailio/kamailio.cfg
+        CFGFILE=/usr/local/etc/kamailio/kamailio.cfg
 
 0. Copy kamailio.init to /etc/init.d
 
