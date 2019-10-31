@@ -73,7 +73,18 @@ Begin
         DBROPW="kam12345"
         DBROOTUSER="root"
         DBROOTPW="kam12345"
-    
+
+        z# This file will be pushed to /usr/local/etc/kamailio/kamctlrc
+        SIP_DOMAIN=sip.alta3.com
+        DBENGINE=MYSQL
+        DBNAME=kamailio
+        DBRWUSER="kamailio"
+        DBRWPW="kam12345"
+        DBROUSER="kamailioro"
+        DBROPW="kam12345"
+        DBROOTUSER="root"
+        DBROOTPW="kam12345"
+
 0. Copy the kamctlrc file to the workspace.
 
     `sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc`
