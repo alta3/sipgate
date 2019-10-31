@@ -69,7 +69,7 @@ storage `100G`
     `sudo cat /etc/letsencrypt/live/sip.alta3.com/fullchain.pem`
 
 ----
-### 4 - JS Client
+### 5 - JS Client
 
 1. clone the repo that inspired sipgate ---> [WEB-RTC repo](https://github.com/havfo/WEBRTC-to-SIP)
 
@@ -102,9 +102,12 @@ storage `100G`
 
 
 ----
-### 5 - NGINX install from source  
+### 6 - NGINX install from source  
 > See [README.md](https://github.com/alta3/sipgate/tree/master/nginx) for installation instructions
 
+----
+### 7 - KAMAILIO install from source  
+> See [README.md](https://github.com/alta3/sipgate/blob/master/kamailio/README.md) for installation instructions
 
 ### 8 - Install ngcp-rtpengine  
 > ngcp stands for next generation communication platform. It is limited to handing RTP, but can transcode, NAT RELAY, and record voice. 
