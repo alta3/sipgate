@@ -83,7 +83,7 @@ storage `100G`
 
     `cp -r client/* /var/www/html/`
 
-0. vim turn config file
+0. vim the js config file
 
     `sudo vim /var/www/html/config.js`
 
