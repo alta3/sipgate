@@ -78,7 +78,7 @@ Begin
 
     `sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc`
 
-    > If the above step fails, most likely do to password policy set too high, make these changes....  
+    > **If the above step fails, most likely do to password policy set too high, make these changes....**  
       `mysql>` `SET GLOBAL validate_password_policy=LOW;`  
       `mysql>` `ALTER USER 'root'@'localhost' IDENTIFIED BY 'kam12345';`  
       `mysql>` `SHOW DATABASES;`  
