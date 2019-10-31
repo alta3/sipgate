@@ -1,3 +1,5 @@
+## Install NGINX from source
+
 The nginx server needs to be compiled from source to include the **ssl_preread_module** which is no longer available on new versions of nginx. This module allows the nginx server to proxy 
 1. apt install dependancies
 
