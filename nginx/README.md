@@ -69,11 +69,6 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
 
     `sudo adduser --system --home /nonexistent --shell /bin/false --no-create-home --disabled-login --disabled-password --gecos "nginx user" --group nginx`
 
-0. Check NGINX syntax and potential errors
-
-    `sudo nginx -t`
-
-
 0. Create NGINX directories and set permissions
 
     `sudo mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/proxy_temp /var/cache/nginx/scgi_temp /var/cache/nginx/uwsgi_temp`
@@ -403,9 +398,9 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
                }
        }
 
-0. Test config with the following command
+0. Check NGINX syntax and potential errors
 
-    `nginx -c /etc/nginx/nginx.conf -t`
+    `sudo nginx -t`
 
 0. Restart nginx
 
