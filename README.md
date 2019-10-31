@@ -1,5 +1,7 @@
 # sipgate
 
+!(sipgrate)[https://github.com/alta3/sipgate/blob/master/images/sipgate.png]
+
 **sipgate requires the following services:**
 
 1. A sipgate server, with a single interface in the alt3 services subnet `10.1.16.0/24`
