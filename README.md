@@ -79,6 +79,10 @@ storage `100G`
 
     `cd WEBRTC-to-SIP`
 
+0. mkdir /var/www/html/
+
+    mkdir -p /var/www/html/
+    
 0. Install sip js client. [This client](https://github.com/havfo/SipCaller) is what you are installing
 
     `cp -r client/* /var/www/html/`
