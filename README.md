@@ -152,4 +152,22 @@ storage `100G`
 0. Start the turn server
 
     `sudo service coturn restart`  
+
+### TESTING
+
+1. Add some users to kamailio
+
+    `kamctl add 2151 seansecret`  
+    `kamctl add 2150 tracysecret`  
+    `kamctl add 2228 hilarysecret`
+    `kamctl add 2222 stusecret`    
     
+    `service kamailio restart`  
+    
+0. Login at https://sip.alta3.com (sean example)
+
+        Display name: Sean
+        SIP URI: 2151p@sip.alta3.com
+        Password: seansecret
+        Outbound Proxy: wss://sip.alta3.com/ws
+        
