@@ -431,10 +431,6 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
 
     `nginx -c /etc/nginx/nginx.conf -t`
 
-0. copy sipJS clinet to its directory
-
-    `cp -r client/* /var/www/html/`
-
 0. Restart nginx
 
     `service nginx restart`
