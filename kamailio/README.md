@@ -108,6 +108,15 @@ Begin
         INFO: UID tables succesfully created.
 
 
+    > If this fails, try this..
+    
+        how databases;
+        drop database kamailio;
+        ALTER USER 'root'@'localhost' IDENTIFIED BY 'kam12345';
+        quit
+        Now try again....
+
+
 0. Edit kamailio.cfg file {{IP ADDR, etc}}
 
     `sudo vim /usr/local/etc/kamailio/kamailio.cfg`
