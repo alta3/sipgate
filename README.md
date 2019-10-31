@@ -157,10 +157,10 @@ storage `100G`
 
 1. Add some users to kamailio
 
-    `kamctl add 2251 seansecret`  
-    `kamctl add 2250 tracysecret`  
-    `kamctl add 2228 hilarysecret`  
-    `kamctl add 2222 stusecret`  
+    `sudo kamctl add 2251 seansecret`  
+    `sudo kamctl add 2250 tracysecret`  
+    `sudo kamctl add 2228 hilarysecret`  
+    `sudo kamctl add 2222 stusecret`  
     
     `service kamailio restart`  
     
