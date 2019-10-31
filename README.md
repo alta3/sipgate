@@ -4,14 +4,15 @@
 
 1. A sipgate server, with a single interface in the alt3 services subnet `10.1.16.0/24`
 2. A valid domain `sip.alta3.com`
-3. A SSL certificate `lets-encrypt`
-4. A js SIP client
-5. NGINX to serve the js SIP client
-6. Kamailio Secure Web socket to SIP gateway `WSS to SIP`
-7. siremix kamailio DB manager
-8. NAT Traversal RTP proxy `rtpengine`
-9. A turn server for NAT traversal  `coturn`
-10. A SIP target to call. `asterisk server`
+3. NTP config update
+4. A SSL certificate `lets-encrypt`
+5. A js SIP client
+6. NGINX to serve the js SIP client
+7. Kamailio Secure Web socket to SIP gateway `WSS to SIP`
+8. siremix kamailio DB manager
+9. NAT Traversal RTP proxy `rtpengine`
+10. A turn server for NAT traversal  `coturn`
+11. A SIP target to call. `asterisk server`
 
 
 ----
@@ -31,7 +32,25 @@ storage `100G`
 0. The cloud pfsense is forwarding 5060 and RTP ports to the sipgate server
 
 ----
-### 3 - SSL certificate
+### 3 - NTP
+1. The ubuntu ntp servers are too bogged down to respond to NTP. Log fills up griping ubuntu ntp servers are unresponsive, so point systemd-timesyncd to google NTP servers.
+
+    `sudo vim /etc/systemd/timesyncd.conf`
+
+       # CONFIG /etc/systemd/timesyncd.conf
+       [Time]
+       NTP=time.google.com
+       FallbackNTP=time.google.com
+       #RootDistanceMaxSec=5
+       #PollIntervalMinSec=32
+       #PollIntervalMaxSec=2048
+
+0. Restart timesyncd
+
+    `sudo systemctl restart systemd-timesyncd.service`
+
+----
+### 4 - SSL certificate
 
 1. Use lets-ecrypt to get a signed cert
 
@@ -84,7 +103,8 @@ storage `100G`
 
 ----
 ### 5 - NGINX
-0. apt install dependancies
+The nginx server needs to be compiled from source to include the **ssl_preread_module** which is no longer available on new versions of nginx. This module allows the nginx server to proxy 
+1. apt install dependancies
 
     `sudo apt install -y build-essential tree perl libperl-dev libgd3 libgd-dev libgeoip1 libgeoip-dev geoip-bin libxml2 libxml2-dev libxslt1.1 libxslt1-dev` 
 
@@ -421,24 +441,8 @@ storage `100G`
 
 ### 8 - Install ngcp-rtpengine  
 > ngcp stands for next generation communication platform. It is limited to handing RTP, but can transcode, NAT RELAY, and reocrd voice. 
------
-1. The ubuntu ntp servers are too bogged down to respond to NTP. Log fills up griping ubuntu ntp servers are unresponsive, so point systemd-timesyncd to google NTP servers.
-
-    `sudo vim /etc/systemd/timesyncd.conf`
-
-       # CONFIG /etc/systemd/timesyncd.conf
-       [Time]
-       NTP=time.google.com
-       FallbackNTP=time.google.com
-       #RootDistanceMaxSec=5
-       #PollIntervalMinSec=32
-       #PollIntervalMaxSec=2048
-
-0. Restart timesyncd
-
-    `sudo systemctl restart systemd-timesyncd.service`
-
-0. Create a github directory.
+----
+1. Create a github directory.
 
     `mkdir -p ~/github`
     
