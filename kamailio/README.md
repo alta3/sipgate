@@ -78,7 +78,7 @@ Begin
 
     `sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc`
 
-0. copy (kamailio.cfg)[https://raw.githubusercontent.com/alta3/sipgate/master/kamailio/kamailio.cfg?token=ADITSNB6UVKCBCKN52WXEL25YMAL6] to the proper directory with edits. 
+0. copy [kamailio.cfg](https://raw.githubusercontent.com/alta3/sipgate/master/kamailio/kamailio.cfg?token=ADITSNB6UVKCBCKN52WXEL25YMAL6) to the proper directory with edits. 
 
     **TODO: mysql database password NOT secure!**
 
