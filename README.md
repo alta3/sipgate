@@ -1,6 +1,6 @@
 # sipgate
 
-!(sipgrate)[https://github.com/alta3/sipgate/blob/master/images/sipgate.png]
+![sipgrate](https://github.com/alta3/sipgate/blob/master/images/sipgate.png)
 
 **sipgate requires the following services:**
 
