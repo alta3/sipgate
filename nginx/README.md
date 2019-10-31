@@ -11,7 +11,7 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
 
 0. Install nginx from source, we need modules avaible only by compiling. Download the tarballs...
 
-    `wget wget https://nginx.org/download/nginx-1.16.1.tar.gz && tar zxvf nginx-1.16.1.tar.gz`
+    `wget https://nginx.org/download/nginx-1.16.1.tar.gz && tar zxvf nginx-1.16.1.tar.gz`
     
  0. Download PCRE version 8.42
  
