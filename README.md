@@ -159,8 +159,8 @@ storage `100G`
 
     `kamctl add 2151 seansecret`  
     `kamctl add 2150 tracysecret`  
-    `kamctl add 2228 hilarysecret`
-    `kamctl add 2222 stusecret`    
+    `kamctl add 2228 hilarysecret`  
+    `kamctl add 2222 stusecret`  
     
     `service kamailio restart`  
     
