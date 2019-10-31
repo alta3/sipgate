@@ -436,7 +436,7 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
     `service nginx restart`
 
 ### 8 - Install ngcp-rtpengine  
-> ngcp stands for next generation communication platform. It is limited to handing RTP, but can transcode, NAT RELAY, and reocrd voice. 
+> ngcp stands for next generation communication platform. It is limited to handing RTP, but can transcode, NAT RELAY, and record voice. 
 ----
 1. Create a github directory.
 
