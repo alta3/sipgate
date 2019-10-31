@@ -80,13 +80,7 @@ Begin
 
 0. copy (kamailio.cfg)[https://raw.githubusercontent.com/alta3/sipgate/master/kamailio/kamailio.cfg?token=ADITSNB6UVKCBCKN52WXEL25YMAL6] to the proper directory with edits. 
 
-        #   #!define DBURL "mysql://kamailio:kam12345@localhost/kamailio"
-        # in the #! section, enable the WITH_MYSQL compiler directives
-        # =============================================
-        # #!define WITH_MYSQL
-        # #!define WITH_AUTH
-        # #!define WITH_USRLOCDB
-        # =============================================
+    **TODO: mysql database password NOT secure!**
 
     `sudo cp  ~/sipgate/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg`
 
