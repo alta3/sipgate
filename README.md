@@ -157,8 +157,8 @@ storage `100G`
 
 1. Add some users to kamailio
 
-    `kamctl add 2151 seansecret`  
-    `kamctl add 2150 tracysecret`  
+    `kamctl add 2251 seansecret`  
+    `kamctl add 2250 tracysecret`  
     `kamctl add 2228 hilarysecret`  
     `kamctl add 2222 stusecret`  
     
@@ -167,7 +167,7 @@ storage `100G`
 0. Login at https://sip.alta3.com (sean example)
 
         Display name: Sean
-        SIP URI: 2151p@sip.alta3.com
+        SIP URI: 2251p@sip.alta3.com
         Password: seansecret
         Outbound Proxy: wss://sip.alta3.com/ws
         
