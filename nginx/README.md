@@ -404,4 +404,4 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
 
 0. Restart nginx
 
-    `service nginx restart`
+    `sudo service nginx restart`
