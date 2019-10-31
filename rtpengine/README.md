@@ -3,54 +3,9 @@
 Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/README.md) for the source document of steps that mostly work. Corrections listed here.
 
 
-### Parts of the WEB-RTC repo are usable (for now)
-
-1. Clone the webrtc repo
-
-    `git clone git@github.com:havfo/WEBRTC-to-SIP.git`
-
-0. cd into the newly cloned repo
-
-    `cd WEBRTC-to-SIP/`
-
-0. Replace the *"6x-6x"* pattern in all files with your server's IPv6 address.
-
-    `find . -type f -print0 | xargs -0 sed -i 's/XXXXXX-XXXXXX/fe80::20c:29ff:fed9:ba61/g'`
-
-0. Replace the *"5x-5x"* pattern in all files with your server's IP address
-
-    `find . -type f -print0 | xargs -0 sed -i 's/XXXXX-XXXXX/10.16.1.198/g'`
-
-0. Replace the *"4x-4x"* in all files with your server's domain name.
-
-    `find . -type f -print0 | xargs -0 sed -i 's/XXXX-XXXX/sip.alta3.com/g'`
-
-0. cd back to home
-
-    `cd`
-
-
-
-### Install ngcp-rtpengine  
-> ngcp stands for next generation communication platform. It is limited to handing RTP, but can transcode, NAT RELAY, and reocrd voice. 
------
-1. The ubuntu ntp servers are too bogged down to respond to NTP. Log fills up griping ubuntu ntp servers are unresponsive, so point systemd-timesyncd to google NTP servers.
-
-    `sudo vim /etc/systemd/timesyncd.conf`
-
-       # CONFIG /etc/systemd/timesyncd.conf
-       [Time]
-       NTP=time.google.com
-       FallbackNTP=time.google.com
-       #RootDistanceMaxSec=5
-       #PollIntervalMinSec=32
-       #PollIntervalMaxSec=2048
-
-0. Restart timesyncd
-
-    `sudo systemctl restart systemd-timesyncd.service`
-
-0. Create a github directory.
+> ngcp stands for next generation communication platform. It is limited to handing RTP, but can transcode, NAT RELAY, and record voice. 
+----
+1. Create a github directory.
 
     `mkdir -p ~/github`
     
@@ -116,6 +71,10 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
     `cd ..`
 
+0. Set up rtpengine config ahead of the install
+
+    `sudo mkdir -p /etc/rtpengine`
+
 0. Edit /etc/rtpengine/rtpengine.conf. Startup FAILS without this config in place.
 
     `sudo vim /etc/rtpengine/rtpengine.conf`
@@ -151,4 +110,4 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 0. **Restart rtpengine** as follows:
 
-    `sudo systemctl restart ngcp-rtpengine-daemon` 
+    `sudo systemctl restart ngcp-rtpengine-daemon`
