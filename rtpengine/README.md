@@ -102,7 +102,7 @@ Refer to [WEBRTC-to-SIP](https://github.com/havfo/WEBRTC-to-SIP/blob/master/READ
 
 0. **Stop rtpengine** as follows:
 
-    `sudo sudo systemctl stop ngcp-rtpengine-daemon` 
+    `sudo systemctl stop ngcp-rtpengine-daemon` 
     
 0. **Start rtpengine** as follows:
 
