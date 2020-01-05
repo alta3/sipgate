@@ -320,7 +320,6 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
 0. Edit /etc/nginx/sites-available/default. File is avaiable at ~/sipgate/nginx/etc/nginx/sites-available/default
 
        server_tokens off;
-
        add_header X-Frame-Options SAMEORIGIN;
        add_header X-Content-Type-Options nosniff;
        add_header X-XSS-Protection "1; mode=block";
