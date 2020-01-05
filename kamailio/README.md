@@ -26,7 +26,6 @@ Begin
        nice            = 0
 
        [mysqld]
-       validate_password_policy=LOW
        user            = mysql
        pid-file        = /var/run/mysqld/mysqld.pid
        socket          = /var/run/mysqld/mysqld.sock
