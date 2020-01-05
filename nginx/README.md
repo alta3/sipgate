@@ -239,7 +239,7 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
 
     `sudo vim /etc/nginx/conf.d/default.conf`
 
-       server_tokens off;                                                                                                                                                                                                                                                                                                                                                           
+       server_tokens off; 
        add_header X-Frame-Options SAMEORIGIN;
        add_header X-Content-Type-Options nosniff;
        add_header X-XSS-Protection "1; mode=block";
