@@ -31,7 +31,7 @@ storage `100G`
 
     `cd ~/.ssh`
     
-    `ssy-keygen`
+    `ssh-keygen`
     
     copy `id_rsa.pub` the public key to github    
 
