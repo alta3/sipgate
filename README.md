@@ -27,6 +27,16 @@ cores: `4`
 mem: `8G`  
 storage `100G`  
 
+1. Most likely, you are on a new VM nothing configured, so do the drill to clone the sipgate repo...
+
+    `cd ~/.ssh`
+    
+    `ssy-keygen`
+    
+    copy `id_rsa.pub` the public key to github    
+
+    `git clone git@github.com:alta3/sipgate.git`
+
 ----
 ### 2 - SIP Domain
 1. area 53 dns is resolving `sip.alta3.com` to `71.251.147.236`
