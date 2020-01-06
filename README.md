@@ -178,7 +178,7 @@ storage `100G`
 0. Login at https://sip.alta3.com (sean example)
 
         Display name: Sean
-        SIP URI: 2251p@sip.alta3.com
+        SIP URI: 2251@sip.alta3.com
         Password: seansecret
         Outbound Proxy: wss://sip.alta3.com/ws
 
