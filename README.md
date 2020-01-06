@@ -181,4 +181,18 @@ storage `100G`
         SIP URI: 2251p@sip.alta3.com
         Password: seansecret
         Outbound Proxy: wss://sip.alta3.com/ws
-        
+
+0. At the CLI, list the provisioned users: 
+
+    `kamctl db show subscriber`
+    
+        +----+----------+---------------+--------------+----------------------------------+----------------------------------+---------------+------+
+        | id | username | domain        | password     | ha1                              | ha1b                             | email_address | rpid |
+        +----+----------+---------------+--------------+----------------------------------+----------------------------------+---------------+------+
+        |  1 | 2251     | sip.alta3.com | seansecret   | b5cb0b9d534921233da1f9fd1ad4a9f0 | f4d6f82bb84bd5575b0a96150cc74c17 | NULL          | NULL |
+        |  2 | 2250     | sip.alta3.com | tracysecret  | 8c6d557582f939847429a2bd3db8c247 | 8eb16e448e76fbd73bf268a88db28757 | NULL          | NULL |
+        |  3 | 2228     | sip.alta3.com | hilarysecret | a55607a7de87ef3ebd94a2de0c646677 | e579cc13c4351d7d65c950af6c4ee70d | NULL          | NULL |
+        |  4 | 2222     | sip.alta3.com | stusecret    | e3c1f07a1a1a580cb31e8e1182dda594 | 8c050b96e1a27ccb915e4bad71fc678c | NULL          | NULL |
+        |  5 | 2230     | sip.alta3.com | bjsecret     | 601bfe94a62304698b25baeab3dab499 | 2befe1be8cafc01319881ec7b897f4dd | NULL          | NULL |
+        |  6 | 2004     | sip.alta3.com | samsecret    | 8e8aa45725f1467320459a19abb68efe | 119ab25bc743f9d8965ab8903e3d5473 | NULL          | NULL |
+        +----+----------+---------------+--------------+----------------------------------+----------------------------------+---------------+------+
