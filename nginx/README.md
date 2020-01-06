@@ -110,7 +110,7 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
     
        # enabled
 
-0. edit /etc/nginx/nginx.conf
+0. edit /etc/nginx/nginx.conf, cut and paste below content, then REMOVE `10.16.1.195` and replace with the current machine's IP address at vim using command  `:%v/10.16.1.195/YOUR_IP/gc`
 
     `sudo vim /etc/nginx/nginx.conf`  
 
