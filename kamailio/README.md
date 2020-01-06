@@ -195,4 +195,14 @@ Begin
 0. fix the "chown" issue. 
 
     `sudo chown kamailio:kamailio /var/run/kamailio`
+    
+0. Make /etc/kamalio directory
+
+    `sudo mkdir -p /etc/kamalio`
+
+0. Copy sipgate's tls.cfg into /etc/kamalio
+
+    `sudo cp ~/sipgate/kamailio/tls.cfg /etc/kamailio/
+
+
 
