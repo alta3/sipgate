@@ -173,7 +173,7 @@ storage `100G`
     `sudo kamctl add 2228 hilarysecret`  
     `sudo kamctl add 2222 stusecret`  
     
-    `service kamailio restart`  
+    `sudo service kamailio restart`  
     
 0. Login at https://sip.alta3.com (sean example)
 
