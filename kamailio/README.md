@@ -198,7 +198,7 @@ Begin
     
 0. Make /etc/kamalio directory
 
-    `sudo mkdir -p /etc/kamalio`
+    `sudo mkdir -p /etc/kamailio`
 
 0. Copy sipgate's tls.cfg into /etc/kamalio
 
