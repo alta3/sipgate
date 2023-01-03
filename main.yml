@@ -6,7 +6,7 @@
    - name: timesyncd
 
   tasks:
-  - name: Install an SSL cert
+  - name: Install an SSL cert, kamailio dependencies
     apt:
       name:
         - certbot
@@ -23,6 +23,19 @@
         - libxml2-dev
         - libxslt1.1
         - libxslt1-dev
+        - gcc 
+        - g++
+        - flex
+        -  bison
+        - libmysqlclient-dev
+        - make
+        - libcurl4-openssl-dev
+        - libssl-dev
+        - libxml2-dev
+        - libpcre3-dev
+        - libunistring-dev
+        - mysql-server
+        - libsctp-dev
     become: True
 
   - name: Tell certbot to create a cert.
@@ -126,10 +139,21 @@
       - '{ /var/cache/nginx/uwsgi_temp }'
 
   - name: Create NGINX systemd unit file.
-    shell: sudo vim /etc/systemd/system/nginx.service
+    template:
+      src: nginx/etc/systemd/nginx.service.j2
+      dest: /etc/systemd/system/nginx.service
+      owner: 
+      group: 
+      mode: '0755'
+    become: True
 
-  - name: kamailio dependancies
-    shell: sudo apt install -y gcc g++ flex bison libmysqlclient-dev make libcurl4-openssl-dev libssl-dev libxml2-dev libpcre3-dev libunistring-dev mysql-server libsctp-dev
+  - name: enable and start nginx
+    systemd:
+      name: nginx.service
+      state: started
+      enabled: yes
+      daemon_reload: yes
+    become: True
 
   - name: Secure the mysql installation (this is a mysql parameter)
     shell: sudo mysql_secure_installation  --user=root --password=kam12345  --use-default
