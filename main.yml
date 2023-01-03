@@ -164,11 +164,19 @@
   - name: Restart mysql
     shell: sudo service mysql restart
 
-  - name: Create dir
-    shell: mkdir -p ~/github
+  - name: Create dir for github repos
+    file:
+      path: directory
+      name: ~/github
+      owner: '{{ ansible_user }}'
+      group: '{{ ansible_user }}'
+      mode: '0750'
+    become: True
 
   - name: clone kamailio
-    shell: git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio
+    git:
+      repo: https://github.com/kamailio/kamailio
+      dest: ~/github/kamailio
 
   - name: cd into the new git repo
     shell: cd kamailio
