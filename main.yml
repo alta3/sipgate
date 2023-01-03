@@ -7,37 +7,84 @@
 
   tasks:
   - name: Install an SSL cert
-    shell: sudo apt-get -y install certbot
+    apt:
+      name:
+        - certbot
+        - build-essential
+        - tree
+        - perl
+        - libperl-dev
+        - libgd3
+        - libgd-dev
+        - libgeoip1
+        - libgeoip-dev
+        - geoip-bin
+        - libxml2
+        - libxml2-dev
+        - libxslt1.1
+        - libxslt1-dev
+    become: True
 
   - name: Tell certbot to create a cert.
     shell: sudo certbot certonly --standalone -d sipgate.alta3.com
 
   - name: Create web root
-    shell: sudo mkdir -p /var/www/html/
+    file:
+      path: /var/www/html/
+      owner: root
+      group: root
+      mode: '0755'
+    become: True
 
   - name: Install js config file - should be a template
-    shell: sudo cp jsclient/config.js /var/www/html/
+    template:
+      src: config.js
+      dest: /var/www/html/config
+      owner: root
+      group: root
+      mode: '0750'
+    become: True
 
   - name: Install sip js client
-    shell: sudo cp client/*  /var/www/html/
-
-  - name: Install nginx build dependancies
-    shell: sudo apt install -y build-essential tree perl libperl-dev libgd3 libgd-dev libgeoip1 libgeoip-dev geoip-bin libxml2 libxml2-dev libxslt1.1 libxslt1-dev
+    copy:
+      src: '{{item.src}}'
+      dest: '{{item.dest}}'
+    loop:
+      - client/asset-manifest.json
+      - client/config.js
+      - client/favicon.ico
+      - client/index.html
+      - client/manifest.json
+      - client/precache-manifest.2da2d0d268e58779c701c9f88d99aed8.js
+      - client/service-worker.js
+      - client/static/*
 
   - name: Install user nginx
-    shell: sudo adduser --system --no-create-home --shell /bin/false --group --disabled-login nginx
+    user:
+      name: nginx
+    Become: True
 
   - name: Install nginx from source, we need modules avaible only by compiling. Download the tarballs...
-    shell: wget https://nginx.org/download/nginx-1.16.1.tar.gz && tar zxvf nginx-1.16.1.tar.gz
+    url: https://nginx.org/download/nginx-1.16.1.tar.gz
 
   - name: Download PCRE version 8.42
-    shell: wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz && tar xzvf pcre-8.42.tar.gz
+    url: https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz
 
   - name: Download zlib version 1.2.11
-    shell: wget https://www.zlib.net/zlib-1.2.11.tar.gz && tar xzvf zlib-1.2.11.tar.gz
+    url: https://www.zlib.net/zlib-1.2.11.tar.gz
 
   - name: Download OpenSSL version 1.1.0h
-    shell: wget https://www.openssl.org/source/openssl-1.1.0h.tar.gz && tar xzvf openssl-1.1.0h.tar.gz
+    url: https://www.openssl.org/source/openssl-1.1.0h.tar.gz
+
+  - name: untar files
+    unarchive:
+      src: '{{ item.src }}'
+      dest: '{{ item.dest }}'
+    loop:
+      - '{ src: ~/nginx-1.16.1.tar.gz    dest: ~/nginx-1.16.1 }'
+      - '{ src: ~/pcre-8.42.tar.gz       dest: ~/pcre-8.42 }'
+      - '{ src: ~/zlib-1.2.11.tar.gz     dest: ~/zlib-1.2.11 }'
+      - '{ src: ~/openssl-1.1.0h.tar.gz  dest: ~/openssl-1.1.0h }'
 
   - name: Remove the tarballs as they are no longer needed.
     shell: rm -rf *.tar.gz
