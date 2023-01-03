@@ -1,0 +1,170 @@
+---
+- name: connectivity and fact gathering
+  hosts: sipgate
+  gather_facts: True
+  roles:
+   - name: timesyncd
+
+  tasks:
+  - name: Install an SSL cert
+    shell: sudo apt-get -y install certbot
+
+  - name: Tell certbot to create a cert.
+    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
+
+  - name: Create web root
+    shell: sudo mkdir -p /var/www/html/
+
+  - name: Install js config file - should be a template
+    shell: sudo cp jsclient/config.js /var/www/html/
+
+  - name: Install sip js client
+    shell: sudo cp client/*  /var/www/html/
+
+  - name: Install nginx build dependancies
+    shell: sudo apt install -y build-essential tree perl libperl-dev libgd3 libgd-dev libgeoip1 libgeoip-dev geoip-bin libxml2 libxml2-dev libxslt1.1 libxslt1-dev
+
+  - name: Install user nginx
+    shell: sudo adduser --system --no-create-home --shell /bin/false --group --disabled-login nginx
+
+  - name: Install nginx from source, we need modules avaible only by compiling. Download the tarballs...
+    shell: wget https://nginx.org/download/nginx-1.16.1.tar.gz && tar zxvf nginx-1.16.1.tar.gz
+
+  - name: Download PCRE version 8.42
+    shell: wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz && tar xzvf pcre-8.42.tar.gz
+
+  - name: Download zlib version 1.2.11
+    shell: wget https://www.zlib.net/zlib-1.2.11.tar.gz && tar xzvf zlib-1.2.11.tar.gz
+
+  - name: Download OpenSSL version 1.1.0h
+    shell: wget https://www.openssl.org/source/openssl-1.1.0h.tar.gz && tar xzvf openssl-1.1.0h.tar.gz
+
+  - name: Remove the tarballs as they are no longer needed.
+    shell: rm -rf *.tar.gz
+
+  - name: cd into nginx-1.16.1
+    shell: cd ~/nginx-1.16.1
+
+  - name: Copy NGINX manual page to /usr/share/man/man8/ directory
+    shell: sudo cp ~/nginx-1.16.1/man/nginx.8 /usr/share/man/man8
+
+  - name: gzip it
+    shell: sudo gzip /usr/share/man/man8/nginx.8
+
+  - name: Build the whole nine yards. The following is ONE LINE OF CODE ....
+    shell: ./configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --user=nginx --group=nginx --build=Ubuntu --builddir=nginx-1.16.1 --with-select_module --with-poll_module --with-threads --with-file-aio --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module=dynamic --with-http_image_filter_module=dynamic --with-http_geoip_module=dynamic --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_auth_request_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module --with-http_perl_module=dynamic --with-perl_modules_path=/usr/share/perl/5.26.1 --with-perl=/usr/bin/perl --http-log-path=/var/log/nginx/access.log --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --with-mail=dynamic --with-mail_ssl_module --with-stream=dynamic --with-stream_ssl_module --with-stream_realip_module --with-stream_geoip_module=dynamic --with-stream_ssl_preread_module --with-compat --with-pcre=../pcre-8.42 --with-pcre-jit --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.0h --with-openssl-opt=no-nextprotoneg --with-debug
+
+  - name: Run make
+    shell: make
+
+  - name: run make install
+    shell: run make install
+
+  - name: create the ngix user
+    shell: sudo adduser --system --home /nonexistent --shell /bin/false --no-create-home --disabled-login --disabled-password --gecos "nginx user" --group nginx
+
+  - name: Create NGINX directories and set permissions
+    shell: sudo mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/proxy_temp /var/cache/nginx/scgi_temp /var/cache/nginx/uwsgi_temp
+
+  - name: set permissions for above
+    shell: sudo chmod 700 /var/cache/nginx/* && sudo chown nginx:root /var/cache/nginx/*
+
+  - name: Create NGINX systemd unit file.
+    shell: sudo vim /etc/systemd/system/nginx.service
+
+  - name: kamailio dependancies
+    shell: sudo apt install -y gcc g++ flex bison libmysqlclient-dev make libcurl4-openssl-dev libssl-dev libxml2-dev libpcre3-dev libunistring-dev mysql-server libsctp-dev
+
+  - name: Secure the mysql installation (this is a mysql parameter)
+    shell: sudo mysql_secure_installation  --user=root --password=kam12345  --use-default
+
+  - name: Install mysql config
+    shell: cp kamailio/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
+
+  - name: Restart mysql
+    shell: sudo service mysql restart
+
+  - name: Create dir
+    shell: mkdir -p ~/github
+
+  - name: clone kamailio
+    shell: git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio
+
+  - name: cd into the new git repo
+    shell: cd kamailio
+
+  - name: drop back to 5.1
+    shell: make cfg
+
+  - name: copy the modules list
+    shell: cp  ~/sipgate/kamailio/modules.lst ~/github/kamailio/src/modules.lst
+
+  - name: make cfg file
+    shell: make include_modules="db_mysql dialplan presence regex websocket rtpengine tls sctp" cfg
+
+  - name: make and install
+    shell: make all && sudo make install
+
+  - name: Copy the kamctlrc file to the workspace
+    shell: sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc
+
+  - name: Copy the databse
+    shell: sudo cp  ~/sipgate/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg
+
+  - name: Create kamailio db
+    shell: sudo /usr/local/sbin/kamdbctl create
+
+  - name: deploy kamailio cfg file
+    shell: cp kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg
+
+  - name: Copy init script
+    shell: sudo cp ~/sipgate/kamailio/kamailio.init   /etc/init.d/kamailio
+ 
+  - name: install kamalio defaults
+    shell: sudo cp ~/sipgate/kamailio/kamailio.default   /etc/default/kamailio  
+
+  - name: create pid file dir
+    shell: sudo mkdir -p /var/run/kamailio
+
+  - name: Add kamailio user
+    shell: sudo adduser --quiet --system --group --disabled-password --shell /bin/false --gecos "Kamailio" --home /var/run/kamailio kamailio
+
+  - name: fix the "chown" issue for above
+    shell: sudo chown kamailio:kamailio /var/run/kamailio
+
+  - name: Make /etc/kamalio directory
+    shell: sudo mkdir -p /etc/kamailio
+
+  - name: Copy sipgate's tls.cfg into /etc/kamalio
+    shell: sudo cp ~/sipgate/kamailio/tls.cfg /etc/kamailio/
+
+
+  - name: cp into sipgate
+    shell: cd ~/sipgate
+
+  - name: clone rtpengine repo
+    shell: git clone https://github.com/sipwise/rtpengine.git
+
+  - name: install rtpengine
+    shell: cd rtpengine/ && sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev
+
+Load bash variable "$VER" to save typing....
+
+VER=1.0.4
+
+  - name: G.729 codec is needed for the next step. Go get it!
+    shell: curl https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/$VER >bcg729_$VER.orig.tar.gz
+
+  - name: untar the code
+    shell: tar zxf bcg729_$VER.orig.tar.gz
+
+  - name: make it so
+    shell: cd bcg729-1.0.4 && git clone https://github.com/ossobv/bcg729-deb.git debian
+
+  - name: Create the package - take over five minutes
+    shell: dpkg-buildpackage -us -uc -sa && cd ../ && sudo dpkg -i libbcg729-*.deb && dpkg-checkbuilddeps && dpkg-buildpackage -us -uc -sa
+
+
+Set up rtpengine config ahead of the install
+
+sudo mkdir -p /etc/rtpengine
