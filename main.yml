@@ -178,28 +178,32 @@
       mode: '0750'
     become: True
 
-#   - name: Restart mysql
-#     shell: sudo service mysql restart
-# 
-#   - name: Create dir for github repos
-#     file:
-#       path: directory
-#       name: ~/github
-#       owner: '{{ ansible_user }}'
-#       group: '{{ ansible_user }}'
-#       mode: '0750'
-#     become: True
-# 
-#   - name: clone kamailio
-#     git:
-#       repo: https://github.com/kamailio/kamailio
-#       dest: ~/github/kamailio
-# 
-#   - name: cd into the new git repo
-#     shell: cd kamailio
-# 
-#   - name: drop back to 5.1
-#     shell: make cfg
+  - name: Restart mysql
+    systemd:
+      name: mysql
+      state: restarted
+    become: True
+
+ 
+  - name: Create dir for github repos
+    file:
+      path: directory
+      name: ~/github
+      owner: '{{ ansible_user }}'
+      group: '{{ ansible_user }}'
+      mode: '0750'
+    become: True
+ 
+  - name: clone kamailio
+    git:
+      repo: https://github.com/kamailio/kamailio
+      dest: ~/github/kamailio
+ 
+  - name: drop back to 5.1
+    shell: 
+      cmd: make cfg
+    args:
+      chdir: ~/github/kamailio
 # 
 #   - name: copy the modules list
 #     shell: cp  ~/sipgate/kamailio/modules.lst ~/github/kamailio/src/modules.lst
