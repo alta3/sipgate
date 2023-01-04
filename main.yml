@@ -38,8 +38,8 @@
         - libsctp-dev
     become: True
 
-  - name: Tell certbot to create a cert.
-    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
+#  - name: Tell certbot to create a cert.
+#    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
 
   - name: Create web root
     file:
@@ -158,7 +158,7 @@
 
   - name: Create NGINX systemd unit file.
     template:
-      src: nginx/etc/systemd/nginx.service.j2
+      src: nginx/etc/systemd/nginx.service
       dest: /etc/systemd/system/nginx.service
       owner: '{{ ansible_user }}' 
       group: '{{ ansible_user }}' 
