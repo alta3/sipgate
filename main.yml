@@ -212,36 +212,69 @@
     args:
       chdir: ~/github/kamailio
 
- - name: copy the modules list
-   copy:
-     src: ~/sipgate/kamailio/modules.lst
-     dest: ~/github/kamailio/src/modules.lst
-     remote_src: yes
+  - name: copy the modules list
+    copy:
+      src: ~/sipgate/kamailio/modules.lst
+      dest: ~/github/kamailio/src/modules.lst
+      remote_src: yes
+ 
+  - name: make cfg file
+    shell: make include_modules="db_mysql dialplan presence regex websocket rtpengine tls sctp" cfg
+ 
+  - name: make and install
+    shell: make all && sudo make install
+  
+  - name: Copy the kamctlrc file to the workspace
+    copy: 
+      src: ~/sipgate/kamailio/kamctlrc
+      dest: /usr/local/etc/kamailio/kamctlrc
+      remote_src: yes
+      owner:
+      group:
+      mode:
+    become: True
+ 
+  - name: Copy the databse
+    copy:
+      src: ~/sipgate/kamailio/kamailio.cfg
+      dest: /usr/local/etc/kamailio/kamailio.cfg
+      remote_src: yes
+      owner: 
+      group: 
+      mode: 
+    become: True
 
-#   - name: make cfg file
-#     shell: make include_modules="db_mysql dialplan presence regex websocket rtpengine tls sctp" cfg
-# 
-#   - name: make and install
-#     shell: make all && sudo make install
-# 
-#   - name: Copy the kamctlrc file to the workspace
-#     shell: sudo cp ~/sipgate/kamailio/kamctlrc  /usr/local/etc/kamailio/kamctlrc
-# 
-#   - name: Copy the databse
-#     shell: sudo cp  ~/sipgate/kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg
-# 
-#   - name: Create kamailio db
-#     shell: sudo /usr/local/sbin/kamdbctl create
-# 
-#   - name: deploy kamailio cfg file
-#     shell: cp kamailio/kamailio.cfg  /usr/local/etc/kamailio/kamailio.cfg
-# 
-#   - name: Copy init script
-#     shell: sudo cp ~/sipgate/kamailio/kamailio.init   /etc/init.d/kamailio
-#  
-#   - name: install kamalio defaults
-#     shell: sudo cp ~/sipgate/kamailio/kamailio.default   /etc/default/kamailio  
-# 
+#  - name: Create kamailio db
+#    shell: sudo /usr/local/sbin/kamdbctl create
+ 
+  - name: deploy kamailio cfg file
+    copy:
+      src: kamailio/kamailio.cfg
+      dest: /usr/local/etc/kamailio/kamailio.cfg
+      remote_src: yes
+      owner: 
+      group: 
+      mode: 
+
+  - name: Copy init script
+    copy:
+      src: ~/sipgate/kamailio/kamailio.init
+      dest: /etc/init.d/kamailio
+      remote_src: yes
+      owner: 
+      group: 
+      mode: 
+ 
+  - name: install kamalio defaults
+    copy:
+      src: ~/sipgate/kamailio/kamailio.default
+      dest: /etc/default/kamailio
+      remote_src: yes
+      owner: 
+      group: 
+      mode: 
+    become: True
+ 
 #   - name: create pid file dir
 #     shell: sudo mkdir -p /var/run/kamailio
 # 
