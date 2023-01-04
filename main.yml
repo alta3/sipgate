@@ -38,8 +38,8 @@
         - libsctp-dev
     become: True
 
-#  - name: Tell certbot to create a cert.
-#    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
+  - name: Tell certbot to create a cert.
+    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
 
   - name: Create web root
     file:
