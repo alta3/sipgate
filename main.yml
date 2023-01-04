@@ -64,14 +64,15 @@
       src: 'client/{{item}}'
       dest: '/var/www/html/{{item}}'
     loop:
-      - '{ asset-manifest.json }'
-      - '{ config.js }'
-      - '{ favicon.ico }'
-      - '{ index.html }'
-      - '{ manifest.json }'
-      - '{ precache-manifest.2da2d0d268e58779c701c9f88d99aed8.js }'
-      - '{ service-worker.js }'
-      - '{ static/* }'
+      - asset-manifest.json
+      - config.js
+      - favicon.ico
+      - index.html
+      - manifest.json
+      - precache-manifest.2da2d0d268e58779c701c9f88d99aed8.js
+      - service-worker.js
+      - static/
+    become: True
 
   - name: Install user nginx
     user:
