@@ -244,8 +244,8 @@
       mode: 
     become: True
 
-#  - name: Create kamailio db
-#    shell: sudo /usr/local/sbin/kamdbctl create
+  - name: Create kamailio db
+    shell: sudo /usr/local/sbin/kamdbctl create
  
   - name: deploy kamailio cfg file
     copy:
@@ -275,9 +275,13 @@
       mode: 
     become: True
  
-#   - name: create pid file dir
-#     shell: sudo mkdir -p /var/run/kamailio
-# 
+  - name: create pid file dir
+    file:
+      path: /var/run/kamailio
+      owner:
+      group:
+      mode: '0755'
+ 
 #   - name: Add kamailio user
 #     shell: sudo adduser --quiet --system --group --disabled-password --shell /bin/false --gecos "Kamailio" --home /var/run/kamailio kamailio
 # 
