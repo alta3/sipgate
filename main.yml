@@ -278,19 +278,30 @@
   - name: create pid file dir
     file:
       path: /var/run/kamailio
+      state: directory
       owner:
       group:
       mode: '0755'
  
-#   - name: Add kamailio user
-#     shell: sudo adduser --quiet --system --group --disabled-password --shell /bin/false --gecos "Kamailio" --home /var/run/kamailio kamailio
-# 
-#   - name: fix the "chown" issue for above
-#     shell: sudo chown kamailio:kamailio /var/run/kamailio
-# 
-#   - name: Make /etc/kamalio directory
-#     shell: sudo mkdir -p /etc/kamailio
-# 
+  - name: Add kamailio user
+    user:
+      name: kamailio
+      home: /var/run/kamailio
+      shell: /bin/false
+    become: True
+
+  - name: fix the "chown" issue for above
+    shell: sudo chown kamailio:kamailio /var/run/kamailio
+ 
+  - name: Make /etc/kamalio directory
+    file:
+      path: /etc/kamailio
+      state: directory
+      owner:
+      group:
+      mode: '0755'
+    become: True
+ 
 #   - name: Copy sipgate's tls.cfg into /etc/kamalio
 #     shell: sudo cp ~/sipgate/kamailio/tls.cfg /etc/kamailio/
 # 
