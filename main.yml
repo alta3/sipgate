@@ -38,8 +38,8 @@
         - libsctp-dev
     become: True
 
-#  - name: Tell certbot to create a cert.
-#    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
+  - name: Tell certbot to create a cert.
+    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
 
   - name: Create web root
     file:
@@ -81,18 +81,22 @@
   - name: Install nginx from source, we need modules avaible only by compiling. Download the tarballs...
     get_url:
       url: https://nginx.org/download/nginx-1.16.1.tar.gz
+      dest: ~/nginx-1.16.1.tar.gz
 
   - name: Download PCRE version 8.42
     get_url:
       url: https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz
+      dest: ~/pcre-8.42.tar.gz
 
   - name: Download zlib version 1.2.11
     get_url:
       url: https://www.zlib.net/zlib-1.2.11.tar.gz
+      dest: ~/zlib-1.2.11.tar.gz
 
   - name: Download OpenSSL version 1.1.0h
     get_url:
       url: https://www.openssl.org/source/openssl-1.1.0h.tar.gz
+      dest: ~/
 
   - name: untar files
     unarchive:
@@ -110,9 +114,6 @@
       state: absent
       path: ~/*.tar.gz
     become: True
-
-  - name: cd into nginx-1.16.1
-    shell: cd ~/nginx-1.16.1
 
   - name: Copy NGINX manual page to /usr/share/man/man8/ directory
     shell: sudo cp ~/nginx-1.16.1/man/nginx.8 /usr/share/man/man8
