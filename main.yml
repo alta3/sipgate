@@ -8,7 +8,7 @@
   tasks:
   - name: Install an SSL cert, kamailio dependencies
     apt:
-      name:
+      pkg:
         - certbot
         - build-essential
         - tree
@@ -38,8 +38,8 @@
         - libsctp-dev
     become: True
 
-  - name: Tell certbot to create a cert.
-    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
+#  - name: Tell certbot to create a cert.
+#    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
 
   - name: Create web root
     file:
@@ -47,6 +47,7 @@
       owner: root
       group: root
       mode: '0755'
+      state: directory
     become: True
 
   - name: Install js config file - should be a template
@@ -78,16 +79,20 @@
     become: True
 
   - name: Install nginx from source, we need modules avaible only by compiling. Download the tarballs...
-    url: https://nginx.org/download/nginx-1.16.1.tar.gz
+    get_url:
+      url: https://nginx.org/download/nginx-1.16.1.tar.gz
 
   - name: Download PCRE version 8.42
-    url: https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz
+    get_url:
+      url: https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz
 
   - name: Download zlib version 1.2.11
-    url: https://www.zlib.net/zlib-1.2.11.tar.gz
+    get_url:
+      url: https://www.zlib.net/zlib-1.2.11.tar.gz
 
   - name: Download OpenSSL version 1.1.0h
-    url: https://www.openssl.org/source/openssl-1.1.0h.tar.gz
+    get_url:
+      url: https://www.openssl.org/source/openssl-1.1.0h.tar.gz
 
   - name: untar files
     unarchive:
@@ -98,10 +103,10 @@
       - '{ src: ~/pcre-8.42.tar.gz       dest: ~/pcre-8.42 }'
       - '{ src: ~/zlib-1.2.11.tar.gz     dest: ~/zlib-1.2.11 }'
       - '{ src: ~/openssl-1.1.0h.tar.gz  dest: ~/openssl-1.1.0h }'
-    Become: True
+    become: True
 
   - name: Remove the tarballs as they are no longer needed.
-    file: rm -rf *.tar.gz
+    file: 
       state: absent
       path: ~/*.tar.gz
     become: True
