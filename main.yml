@@ -2,6 +2,8 @@
 - name: connectivity and fact gathering
   hosts: sipgate
   gather_facts: True
+  vars:
+    VER: 1.0.4
   roles:
    - name: timesyncd
 
@@ -322,27 +324,28 @@
         dest: ~/sipgate
     become: True
     
-# 
-#   - name: install rtpengine
-#     shell: cd rtpengine/ && sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev
-# 
-# Load bash variable "$VER" to save typing....
-# 
-# VER=1.0.4
-# 
-#   - name: G.729 codec is needed for the next step. Go get it!
-#     shell: curl https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/$VER >bcg729_$VER.orig.tar.gz
-# 
-#   - name: untar the code
-#     shell: tar zxf bcg729_$VER.orig.tar.gz
-# 
-#   - name: make it so
-#     shell: cd bcg729-1.0.4 && git clone https://github.com/ossobv/bcg729-deb.git debian
-# 
-#   - name: Create the package - take over five minutes
-#     shell: dpkg-buildpackage -us -uc -sa && cd ../ && sudo dpkg -i libbcg729-*.deb && dpkg-checkbuilddeps && dpkg-buildpackage -us -uc -sa
-# 
-# 
-# Set up rtpengine config ahead of the install
-# 
-# sudo mkdir -p /etc/rtpengine
+  - name: install rtpengine
+    shell: cd ~/sipgate/rtpengine/ && sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev
+
+ 
+  - name: G.729 codec is needed for the next step. Go get it!
+    shell: curl https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/{{ VER }} >bcg729_{{ VER }}.orig.tar.gz
+ 
+  - name: untar the code
+    shell: tar zxf bcg729_{{ VER }}.orig.tar.gz
+
+  - name: make it so
+    shell: cd bcg729-1.0.4 && git clone https://github.com/ossobv/bcg729-deb.git debian
+ 
+  - name: Create the package - take over five minutes
+    shell: dpkg-buildpackage -us -uc -sa && cd ../ && sudo dpkg -i libbcg729-*.deb && dpkg-checkbuilddeps && dpkg-buildpackage -us -uc -sa
+ 
+ 
+  - name: Make rtp engine directory
+    file:
+      path: /etc/rtpengine
+      state: directory
+      owner:
+      group:
+      mode: '0755'
+    become: True
