@@ -306,15 +306,22 @@
       mode: '0755'
     become: True
  
-#   - name: Copy sipgate's tls.cfg into /etc/kamalio
-#     shell: sudo cp ~/sipgate/kamailio/tls.cfg /etc/kamailio/
-# 
-# 
-#   - name: cp into sipgate
-#     shell: cd ~/sipgate
-# 
-#   - name: clone rtpengine repo
-#     shell: git clone https://github.com/sipwise/rtpengine.git
+  - name: Copy sipgate's tls.cfg into /etc/kamalio
+    copy:
+      src: ~/sipgate/kamailio/tls.cfg
+      dest: /etc/kamailio/
+      remote_src: yes
+      owner: 
+      group: 
+      mode: 
+    become: True
+ 
+  - name: clone rtpengine repo
+    git: 
+        repo: https://github.com/sipwise/rtpengine.git
+        dest: ~/sipgate
+    become: True
+    
 # 
 #   - name: install rtpengine
 #     shell: cd rtpengine/ && sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev
