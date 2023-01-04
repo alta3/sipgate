@@ -36,6 +36,8 @@
         - libunistring-dev
         - mysql-server
         - libsctp-dev
+        - mysql-client
+        - python3-pymysql
     become: True
 
 #  - name: Tell certbot to create a cert.
@@ -158,7 +160,7 @@
 
   - name: Create NGINX systemd unit file.
     template:
-      src: nginx/etc/systemd/nginx.service
+      src: nginx/etc/systemd/system/nginx.service
       dest: /etc/systemd/system/nginx.service
       owner: '{{ ansible_user }}' 
       group: '{{ ansible_user }}' 
@@ -179,6 +181,7 @@
       state: present
       login_password: kam12345
       login_user: root
+      login_unix_socket: /var/run/mysqld/mysqld.sock
     become: True
 
   - name: Install mysql config
