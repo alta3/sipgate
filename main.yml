@@ -38,8 +38,8 @@
         - libsctp-dev
     become: True
 
-  - name: Tell certbot to create a cert.
-    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
+#  - name: Tell certbot to create a cert.
+#    shell: sudo certbot certonly --standalone -d sipgate.alta3.com
 
   - name: Create web root
     file:
@@ -79,19 +79,19 @@
       name: nginx
     become: True
 
-  - name: Install nginx from source, we need modules avaible only by compiling. Download the tarballs...
+  - name: Install nginx from source, we need modules available only by compiling. Download the tarballs...
     get_url:
       url: https://nginx.org/download/nginx-1.16.1.tar.gz
       dest: ~/nginx-1.16.1.tar.gz
 
   - name: Download PCRE version 8.42
     get_url:
-      url: https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz
+      url: https://ftp.exim.org/pub/pcre/pcre-8.42.tar.gz
       dest: ~/pcre-8.42.tar.gz
 
   - name: Download zlib version 1.2.11
     get_url:
-      url: https://www.zlib.net/zlib-1.2.11.tar.gz
+      url: https://zlib.net/fossils/zlib-1.2.11.tar.gz
       dest: ~/zlib-1.2.11.tar.gz
 
   - name: Download OpenSSL version 1.1.0h
@@ -103,12 +103,12 @@
     unarchive:
       src: '{{ item.src }}'
       dest: '{{ item.dest }}'
+      remote_src: True
     loop:
-      - '{ src: ~/nginx-1.16.1.tar.gz    dest: ~/nginx-1.16.1 }'
-      - '{ src: ~/pcre-8.42.tar.gz       dest: ~/pcre-8.42 }'
-      - '{ src: ~/zlib-1.2.11.tar.gz     dest: ~/zlib-1.2.11 }'
-      - '{ src: ~/openssl-1.1.0h.tar.gz  dest: ~/openssl-1.1.0h }'
-    become: True
+      - { src: ~/nginx-1.16.1.tar.gz,    dest: ~/ }
+      - { src: ~/pcre-8.42.tar.gz,       dest: ~/ }
+      - { src: ~/zlib-1.2.11.tar.gz,     dest: ~/ }
+      - { src: ~/openssl-1.1.0h.tar.gz,  dest: ~/ }
 
   - name: Remove the tarballs as they are no longer needed.
     file: 
