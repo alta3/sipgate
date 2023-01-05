@@ -203,12 +203,11 @@
 
   - name: Create dir for github repos
     file:
-      path: directory
+      state: directory
       name: ~/github
       owner: '{{ ansible_user }}'
       group: '{{ ansible_user }}'
       mode: '0750'
-    become: True
  
   - name: clone kamailio
     git:
@@ -225,29 +224,31 @@
     copy:
       src: ~/sipgate/kamailio/modules.lst
       dest: ~/github/kamailio/src/modules.lst
-      remote_src: yes
  
   - name: make cfg file
     shell: make include_modules="db_mysql dialplan presence regex websocket rtpengine tls sctp" cfg
+    args:
+       chdir: ~/github/kamailio
  
   - name: make and install
     shell: make all && sudo make install
-  
+    args:
+       chdir: ~/github/kamailio 
+
+ 
   - name: Copy the kamctlrc file to the workspace
     copy: 
       src: ~/sipgate/kamailio/kamctlrc
       dest: /usr/local/etc/kamailio/kamctlrc
-      remote_src: yes
       owner:
       group:
       mode:
     become: True
  
-  - name: Copy the databse
+  - name: Copy the database
     copy:
       src: ~/sipgate/kamailio/kamailio.cfg
       dest: /usr/local/etc/kamailio/kamailio.cfg
-      remote_src: yes
       owner: 
       group: 
       mode: 
