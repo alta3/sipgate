@@ -223,24 +223,36 @@
 
   - name: copy the modules list
     copy:
-      src: ~/sipgate/kamailio/modules.lst
+      src: kamailio/modules.lst
       dest: ~/github/kamailio/src/modules.lst
-      remote_src: yes
- 
+
   - name: make cfg file
-    shell: make include_modules="db_mysql dialplan presence regex websocket rtpengine tls sctp" cfg
- 
-  - name: make and install
-    shell: make all && sudo make install
+    shell:
+      cmd: make include_modules="db_mysql dialplan presence regex websocket rtpengine tls sctp" cfg
+    args:
+      chdir: ~/github/kamailio/src/
+    become: True
+
+  - name: make all
+    make:
+      target: all
+      chdir: ~/github/kamailio/src/
+    become: True
+  
+  - name: make install
+    make:
+      target: install 
+      chdir: ~/github/kamailio/src/
+    become: True
   
   - name: Copy the kamctlrc file to the workspace
     copy: 
       src: ~/sipgate/kamailio/kamctlrc
       dest: /usr/local/etc/kamailio/kamctlrc
       remote_src: yes
-      owner:
-      group:
-      mode:
+      owner: kamailio
+      group: kamailio
+      mode: '0750'
     become: True
  
   - name: Copy the databse
@@ -248,9 +260,9 @@
       src: ~/sipgate/kamailio/kamailio.cfg
       dest: /usr/local/etc/kamailio/kamailio.cfg
       remote_src: yes
-      owner: 
-      group: 
-      mode: 
+      owner: kamailio
+      group: kamailio
+      mode: '0750'
     become: True
 
   - name: Create kamailio db
@@ -260,37 +272,37 @@
     copy:
       src: kamailio/kamailio.cfg
       dest: /usr/local/etc/kamailio/kamailio.cfg
-      remote_src: yes
-      owner: 
-      group: 
-      mode: 
+      owner: kamailio
+      group: kamailio
+      mode: '0750'
+    become: True
 
   - name: Copy init script
     copy:
       src: ~/sipgate/kamailio/kamailio.init
       dest: /etc/init.d/kamailio
-      remote_src: yes
-      owner: 
-      group: 
-      mode: 
+      owner: kamailio
+      group: kamailio
+      mode: '0750'
+    become: True
  
   - name: install kamalio defaults
     copy:
       src: ~/sipgate/kamailio/kamailio.default
       dest: /etc/default/kamailio
-      remote_src: yes
-      owner: 
-      group: 
-      mode: 
+      owner: root
+      group: root
+      mode: '0644'
     become: True
  
   - name: create pid file dir
     file:
       path: /var/run/kamailio
       state: directory
-      owner:
-      group:
+      owner: root
+      group: root
       mode: '0755'
+    become: True
  
   - name: Add kamailio user
     user:
@@ -300,14 +312,18 @@
     become: True
 
   - name: fix the "chown" issue for above
-    shell: sudo chown kamailio:kamailio /var/run/kamailio
+    file:
+      path: /var/run/kamailio
+      owner: kamailio
+      group: kamailio
+    become: True      
  
   - name: Make /etc/kamalio directory
     file:
       path: /etc/kamailio
       state: directory
-      owner:
-      group:
+      owner: root
+      group: root
       mode: '0755'
     become: True
  
@@ -315,10 +331,9 @@
     copy:
       src: ~/sipgate/kamailio/tls.cfg
       dest: /etc/kamailio/
-      remote_src: yes
-      owner: 
-      group: 
-      mode: 
+      owner: kamailio
+      group: root
+      mode: '0750'
     become: True
  
   - name: clone rtpengine repo
