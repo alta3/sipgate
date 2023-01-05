@@ -149,7 +149,7 @@
     file:
       path: '{{ item }}'
       state: directory
-      owner: nginx
+      owner: root
       group: root
       mode: '0700'
     loop:
@@ -164,8 +164,8 @@
     template:
       src: nginx/etc/systemd/system/nginx.service
       dest: /etc/systemd/system/nginx.service
-      owner: '{{ ansible_user }}' 
-      group: '{{ ansible_user }}' 
+      owner: root 
+      group: root 
       mode: '0755'
     become: True
 
@@ -205,9 +205,9 @@
     file:
       path: directory
       name: ~/github
-      owner: '{{ ansible_user }}'
-      group: '{{ ansible_user }}'
-      mode: '0750'
+      owner: ubuntu
+      group: ubuntu
+      mode: '0755'
     become: True
  
   - name: clone kamailio
