@@ -327,21 +327,34 @@
     become: True
     
   - name: install rtpengine
-    shell: cd ~/sipgate/rtpengine/ && sudo apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev
-
+    shell:
+      chdir: rtpengine/
+      cmd: apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev
+    become: True
  
   - name: G.729 codec is needed for the next step. Go get it!
-    shell: curl https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/{{ VER }} >bcg729_{{ VER }}.orig.tar.gz
+    shell:
+      chdir: rtpengine/
+      cmd: curl https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/{{ VER }} >bcg729_{{ VER }}.orig.tar.gz
+    become: True
  
   - name: untar the code
-    shell: tar zxf bcg729_{{ VER }}.orig.tar.gz
+    shell:
+      chdir: rtpengine/
+      cmd: tar zxf bcg729_{{ VER }}.orig.tar.gz
+    become: True
 
   - name: make it so
-    shell: cd bcg729-1.0.4 && git clone https://github.com/ossobv/bcg729-deb.git debian
- 
+    shell:
+      chdir: rtpengine/bcg729-1.0.4/
+      cmd: git clone https://github.com/ossobv/bcg729-deb.git debian
+     become: True
+
   - name: Create the package - take over five minutes
-    shell: dpkg-buildpackage -us -uc -sa && cd ../ && sudo dpkg -i libbcg729-*.deb && dpkg-checkbuilddeps && dpkg-buildpackage -us -uc -sa
- 
+    shell:
+      chdir: rtpengine/ 
+      cmd: dpkg-buildpackage -us -uc -sa && cd ../ && sudo dpkg -i libbcg729-*.deb && dpkg-checkbuilddeps && dpkg-buildpackage -us -uc -sa
+    become: True
  
   - name: Make rtp engine directory
     file:
