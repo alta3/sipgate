@@ -3,7 +3,7 @@
   hosts: sipgate
   gather_facts: True
   vars:
-    VER: 1.0.4
+    VER: "1.0.4"
   roles:
    - name: timesyncd
 
@@ -323,39 +323,82 @@
   - name: clone rtpengine repo
     git: 
         repo: https://github.com/sipwise/rtpengine.git
-        dest: ~/sipgate
+        dest: ~/github
     become: True
     
-  - name: install rtpengine
-    shell:
-      chdir: rtpengine/
-      cmd: apt-get install -y debhelper=12.1.1ubuntu1~ubuntu18.04.1  init-system-helpers=1.56+nmu1~ubuntu18.04.1 default-libmysqlclient-dev gperf iptables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev
+  - name: Install RTP dependancies
+    apt:
+      pkg:
+        - debhelper
+        - init-system-helpers
+        - default-libmysqlclient-dev
+        - gperf
+      # - iptables-dev
+        - libmysqlclient-dev
+        - libip4tc-dev
+        - libip6tc-dev
+        - libiptc-dev
+        - libxtables-dev
+        - libavcodec-dev
+        - libavfilter-dev
+        - libavformat-dev
+        - libavutil-dev
+        - libbencode-perl
+        - libcrypt-openssl-rsa-perl
+        - libcrypt-rijndael-perl
+        - libhiredis-dev
+        - libio-multiplex-perl
+        - libio-socket-inet6-perl
+        - libjson-glib-dev
+        - libdigest-crc-perl
+        - libdigest-hmac-perl
+        - libnet-interface-perl
+        - libnet-interface-perl
+        - libssl-dev
+        - libsystemd-dev
+        - libxmlrpc-core-c3-dev
+        - libcurl4-openssl-dev
+        - libevent-dev
+        - libpcap0.8-dev
+        - markdown
+        - unzip
+        - nfs-common
+        - dkms
+        - libspandsp-dev
     become: True
  
   - name: G.729 codec is needed for the next step. Go get it!
-    shell:
-      chdir: rtpengine/
-      cmd: curl https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/{{ VER }} >bcg729_{{ VER }}.orig.tar.gz
-    become: True
+    shell: curl https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/{{ VER }} >bcg729_{{ VER }}.orig.tar.gz
+    args:  
+      chdir: /home/ubuntu/github/rtpengine/
  
   - name: untar the code
-    shell:
-      chdir: rtpengine/
-      cmd: tar zxf bcg729_{{ VER }}.orig.tar.gz
-    become: True
+    shell: tar zxf bcg729_{{ VER }}.orig.tar.gz
+    args:
+      chdir: /home/ubuntu/github/rtpengine/
 
-  - name: make it so
-    shell:
-      chdir: rtpengine/bcg729-1.0.4/
-      cmd: git clone https://github.com/ossobv/bcg729-deb.git debian
-     become: True
 
-  - name: Create the package - take over five minutes
-    shell:
-      chdir: rtpengine/ 
-      cmd: dpkg-buildpackage -us -uc -sa && cd ../ && sudo dpkg -i libbcg729-*.deb && dpkg-checkbuilddeps && dpkg-buildpackage -us -uc -sa
-    become: True
+  - name: Clone G.729 codec packager INSIDE the untarred bcg729_{{ VER }} directory
+    git:
+      repo: https://github.com/ossobv/bcg729-deb.git
+      dest: /home/ubuntu/github/rtpengine/bcg729-{{ VER }}/debian
+      version: v1.0.4-0osso3
+
+  - name: Check dependancies - should be empty (TODO)
+    shell: dpkg-checkbuilddeps
+    args:
+      chdir: /home/ubuntu/github/rtpengine/bcg729-{{ VER }}
+
+  - name: Create the debian package - unsigned, unsigned changes, sanatize the environment
+    shell: dpkg-buildpackage -us -uc -sa
+    args:
+      chdir: /home/ubuntu/github/rtpengine/bcg729-{{ VER }}
  
+  - name: Install the debian package
+    shell: sudo dpkg -i libbcg729-*.deb
+    args:
+      chdir: /home/ubuntu/github/rtpengine
+
   - name: Make rtp engine directory
     file:
       path: /etc/rtpengine
@@ -364,3 +407,5 @@
       group:
       mode: '0755'
     become: True
+
+
