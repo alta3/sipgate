@@ -154,6 +154,9 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
            access_log  /var/log/nginx/stream.log basic;
            error_log /var/log/nginx/stream-error.log debug;
 
+# === IPv4:80 ================================================================           
+# Seperate IPv4:80 into either http or turn streams based on detected protocol
+
            upstream turns_ipv4_80 {
                server 10.16.1.195:3479;
            }
@@ -162,10 +165,18 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
                server 127.0.0.1:3480;
            }
 
+# PREREAD ROUTING DONE HERE:
+# if ANY        protocol is detected during preread, route stream to TURN,
+# if "" (empty) protocol is detected during preread, route stream to HTTP
+
            map $ssl_preread_protocol $upstream_ipv4_80 {
                default turns_ipv4_80;
-               "" http_ipv4_80;
+               ""      http_ipv4_80;
            }
+
+# == IPv6:80 =================================================================
+# Seperate IPv6:80 into either http or turn streams based on detected protocol
+# Identical logic as above block
 
            upstream turns_ipv6_80 {
                server [fe80::20c:29ff:fead:8b42]:3479;
@@ -177,8 +188,12 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
 
            map $ssl_preread_protocol $upstream_ipv6_80 {
                default turns_ipv6_80;
-               "" http_ipv6_80;
+               ""      http_ipv6_80;
            }
+
+# == IPv4:443 =================================================================
+# Seperate IPv4:443 into either http or turn streams based on detected protocol
+# Identical logic as above block
 
            upstream turn_ipv4_443 {
                server 10.16.1.195:3478;
@@ -193,6 +208,10 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
                "" turn_ipv4_443;
            }
 
+# == IPv6:443 =================================================================
+# Seperate IPv6:443 into either http or turn streams based on detected protocol
+# Identical logic as above block
+
            upstream turn_ipv6_443 {
                server [fe80::20c:29ff:fead:8b42]:3478;
            }
@@ -203,8 +222,12 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
 
            map $ssl_preread_protocol $upstream_ipv6_443 {
                default https_ipv6_443;
-               "" turn_ipv6_443;
+               ""      turn_ipv6_443;
            }
+
+# ===========================================================================
+# Turn ssl_preread on for all upstreams specified above
+# Set buffer tp 16k
 
            server {
                listen 80;
