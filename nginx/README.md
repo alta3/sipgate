@@ -155,7 +155,7 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
            error_log /var/log/nginx/stream-error.log debug;
 
             # === IPv4:80 ================================================================           
-            # Seperate IPv4:80 into either http or turn streams based on detected protocol
+            # Separate IPv4:80 into either http or turn streams based on detected protocol
 
            upstream turns_ipv4_80 {
                server 10.16.1.195:3479;
@@ -175,7 +175,7 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
            }
 
             # == IPv6:80 =================================================================
-            # Seperate IPv6:80 into either http or turn streams based on detected protocol
+            # Separate IPv6:80 into either http or turn streams based on detected protocol
             # Identical logic as above block
 
            upstream turns_ipv6_80 {
@@ -192,7 +192,7 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
            }
 
             # == IPv4:443 =================================================================
-            # Seperate IPv4:443 into either http or turn streams based on detected protocol
+            # Separate IPv4:443 into either http or turn streams based on detected protocol
             # Identical logic as above block
 
            upstream turn_ipv4_443 {
@@ -209,7 +209,7 @@ The nginx server needs to be compiled from source to include the **ssl_preread_m
            }
 
             # == IPv6:443 =================================================================
-            # Seperate IPv6:443 into either http or turn streams based on detected protocol
+            # Separate IPv6:443 into either http or turn streams based on detected protocol
             # Identical logic as above block
 
            upstream turn_ipv6_443 {
