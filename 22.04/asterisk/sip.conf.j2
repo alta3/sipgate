@@ -1,0 +1,64 @@
+;      _                        _             _       _       
+;  ___(_)_ __     ___ _ __   __| |_ __   ___ (_)_ __ | |_ ___ 
+; / __| | '_ \   / _ \ '_ \ / _` | '_ \ / _ \| | '_ \| __/ __|
+; \__ \ | |_) | |  __/ | | | (_| | |_) | (_) | | | | | |_\__ \
+; |___/_| .__/   \___|_| |_|\__,_| .__/ \___/|_|_| |_|\__|___/
+;       |_|                      |_| 
+[general]
+context = (own_context in extensions.conf where recive the call )
+bindport=5060
+srvlookup=no
+disallow=all
+allow=ulaw
+allow=gsm
+language=en
+
+udpbindaddr= 0.0.0.0:5060   ; default = 0.0.0.0:5060
+
+useragent=Alta3 SIP B2B-UA  ; Set's the useragent field in SIP messages.
+
+trustrpid = yes 
+sendrpid = yes  
+
+; register => fromuser@fromdomain:secret@host
+; register => XXXX@YYYY.com:AAAA@IP
+
+registertimeout=20			; retry registration calls every 20 seconds (default)
+registerattempts=0			; Number of registration attempts before we give up, 
+                            ; 0=continue forever (default) until registration is sucesful
+
+context=guests             	; Default context for incoming calls;
+
+localnet=10.0.0.0/255.255.0.0
+nat = force_rport,auto_comedia
+directmedia= no
+
+[office](!)                ; bang means "I am a template"
+       dtmfmode=rfc2833
+       context=unlimited
+       type=friend         ; Friend=place or recieve calls. peer=INBOUND calls only. user=outbound calls only
+       host=dynamic
+       disallow=all
+       allow=ulaw
+       allow=alaw
+
+[guest](!,office)          ; a template inheriting office
+       nat=force_rport,comedia
+       directmedia=no
+
+[2001](office)             ; need one of these per registering sip endpoint
+                           ; offload this to kamailio, then skip this section
+       secret = 2001pass
+       directmedia=no
+       qualify=no		  
+       mailbox=2001@default
+       callerid= "Test Phone 1" <7175664428>
+
+[2002](office)             ; need one of these per registering sip endpoint
+                           ; offload this to kamailio, then skip this section
+       secret = 2002pass
+       directmedia=no
+       qualify=no		  
+       mailbox=2001@default
+       callerid= "Test Phone 2" <7175664428>
+
