@@ -1,5 +1,0 @@
-- name: restart timesyncd
-  systemd:
-    state: restarted
-    name: systemd-timesyncd.service
-  become: yes
