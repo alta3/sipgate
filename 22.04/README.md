@@ -3,9 +3,9 @@
 These steps are described in detail in the alta3 research web-rtc course.
 
 1. Course Outline
-2. Navigation
-3. Install Asterisk
-4. Install Kamailio
-5. Install RTP Engine
-6. Install NGINX
-7. Insall TURN
+0. Navigation
+0. Install Asterisk
+0. Install RTP Engine
+0. Install Kamailio
+0. Install NGINX
+0. Insall TURN
