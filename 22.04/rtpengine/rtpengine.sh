@@ -14,7 +14,7 @@ wget https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/$VER -O 
 
 tar zxf bcg729_$VER.orig.tar.gz
 
-cd ~/sipgate/22.04/rtpengine/bcg729-$VER
+cd ~/sipgate/22.04/rtpengine/rtpengine/bcg729-$VER
 
 git clone https://github.com/ossobv/bcg729-deb.git debian
 
