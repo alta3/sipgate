@@ -18,3 +18,5 @@ j2 ~/sipgate/22.04/kamailio/kamctlrc.j2 > ~/sipgate/22.04/kamailio/kamctlrc
 sudo cp ~/sipgate/22.04/kamailio/kamailio.cfg /etc/kamailio/
 sudo cp ~/sipgate/22.04/kamailio/kamctlrc     /etc/kamailio/
 sudo cp ~/sipgate/22.04/kamailio/tls.cfg      /etc/kamailio/
+sleep 5
+sudo systemctl restart kamailio
