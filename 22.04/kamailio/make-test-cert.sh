@@ -81,5 +81,5 @@ echo
 echo
 echo "Step 9: Chown keys in kamailio directory."
 echo "--------------------------------------------"
-student@alpha:~$ sudo chown kamailio. /etc/kamailio/privkey.pem
-student@alpha:~$ sudo chown kamailio. /etc/kamailio/fullchain.pem
+sudo chown kamailio. /etc/kamailio/privkey.pem
+sudo chown kamailio. /etc/kamailio/fullchain.pem
