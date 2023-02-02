@@ -4,7 +4,7 @@ cd
 
 git clone https://github.com/alta3/sipgate.git
 
-sudo apt install nginx
+sudo apt install nginx -y
 
 sudo rm /etc/nginx/sites-available/default.conf
 
