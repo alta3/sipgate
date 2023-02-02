@@ -24,7 +24,7 @@ echo
 echo
 echo "Step 2: Generate CA root certificate"
 echo "------------------------------------"
-openssl req -x509 -new -nodes -key ca.key -sha384 -days 36500 -out ca.pem
+openssl req -x509 -new -nodes -key ca.key -sha384 -days 36500 -out ca.pem -subj "/C=US/ST=PA/L=Harrisburg/CN=verisign.com/"
 
 echo
 echo
@@ -36,7 +36,7 @@ echo
 echo
 echo "Step 4: Generate kamailio server certificate signing request"
 echo "------------------------------------------------------------"
-openssl req -new -key cert.key -out cert.csr
+openssl req -new -key cert.key -out cert.csr -subj "/C=US/ST=PA/L=Harrisburg/CN=sipgate.alta3.com/"
 
 echo
 echo
@@ -52,7 +52,7 @@ EOF
 
 echo "Step 5: Create unsigned certificate for kamailio server"
 echo "-------------------------------------------------------"
-openssl req -x509 -new -nodes -key cert.key -sha384 -days 36500 -out cert.unsigned.pem
+openssl req -x509 -new -nodes -key cert.key -sha384 -days 36500 -out cert.unsigned.pem -subj "/C=US/ST=PA/L=Harrisburg/CN=sipgate.alta3.com/"
 
 echo
 echo
