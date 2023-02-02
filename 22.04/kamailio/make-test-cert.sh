@@ -76,3 +76,10 @@ echo "Step 8: Copying certs to kamailio directory."
 echo "--------------------------------------------"
 sudo cp ~/certs/cert.key /etc/kamailio/privkey.pem
 sudo cp ~/certs/cert.pem /etc/kamailio/fullchain.pem
+
+echo
+echo
+echo "Step 9: Chown keys in kamailio directory."
+echo "--------------------------------------------"
+student@alpha:~$ sudo chown kamailio. /etc/kamailio/privkey.pem
+student@alpha:~$ sudo chown kamailio. /etc/kamailio/fullchain.pem
