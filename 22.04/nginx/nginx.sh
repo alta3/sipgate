@@ -14,8 +14,6 @@ sudo cp /home/student/sipgate/22.04/nginx/webrtc.conf  /etc/nginx/conf.d/
 
 sudo mkdir -p /var/www/html
 
-cp -r /home/student/sipgate/18.04/client/*   /home/student/sipgate/22.04/client/
-
-cp -r /home/student/sipgate/22.04/client/*  /var/www/html/   
+cp -r /home/student/sipgate/22.04/content/*  /var/www/html/   
 
 sudo chown -r  www-data:www-data  /var/www/html/
