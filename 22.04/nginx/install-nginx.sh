@@ -17,3 +17,5 @@ sudo mkdir -p /var/www/html
 sudo cp -r /home/student/sipgate/22.04/content/*  /var/www/html/   
 
 sudo chown -R  www-data:www-data  /var/www/html/
+
+sudo systemctl restart nginx.service
