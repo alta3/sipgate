@@ -31,3 +31,12 @@ sudo dpkg-buildpackage -us -uc -sa
 cd ../
 
 sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb
+
+export MY_IP4_ADDR=$(ip a s ens3 | awk -F"[/ ]+" '/inet / {print $3}')
+
+j2 ~/sipgate/22.04/rtpengine/rtpengine.conf.j2 > ~/sipgate/22.04/rtpengine/rtpengine.conf
+
+sudo cp ~/sipgate/22.04/rtpengine/rtpengine.conf /etc/rtpengine/rtpengine.conf
+
+sudo systemctl restart ngcp-rtpengine-daemon
+
