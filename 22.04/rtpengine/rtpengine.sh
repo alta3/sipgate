@@ -33,6 +33,8 @@ cd ../
 sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb
 
 #kamailio will complain without this config being set.
+sudo apt install -y j2cli
+
 export MY_IP4_ADDR=$(ip a s ens3 | awk -F"[/ ]+" '/inet / {print $3}')
 
 j2 ~/sipgate/22.04/rtpengine/rtpengine.conf.j2 > ~/sipgate/22.04/rtpengine/rtpengine.conf
