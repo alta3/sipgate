@@ -16,4 +16,8 @@
 
 `cp /repo-dir/turnserver.conf   /etc/turnserver.conf`
 
+`sudo chmod g+w turn.log`
+
+`sudo chown root:turnserver turn.log`
+
 `sudo service coturn restart` 
