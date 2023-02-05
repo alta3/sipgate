@@ -1,10 +1,13 @@
+# NOTE: turn.alpha.alta3.com=71.251.147.235
 listening-ip={{ TURN_IP4 }}
-# listening-ip={{ TURN_IP6 }}
+listening-port=3478
+tls-listening-port=5349
 fingerprint
 lt-cred-mech
 user=websip:websip
 realm=sipgate.alta3.com
 log-file=/var/log/turn.log
 simple-log
-cert=/etc/letsencrypt/live/sip.alta3.com/fullchain.pem
-pkey=/etc/letsencrypt/live/sip.alta3.com/privkey.pem
+cert=/etc/coturn/certs/fullchain.pem
+pkey=/etc/coturn/certs/privkey.pem
+dh-file=/etc/coturn/certs/dhparam4096.pem
