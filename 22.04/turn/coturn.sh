@@ -5,15 +5,15 @@ echo ===========================================================================
 echo HANDLE TLS CERTS
 echo ====================================================================================
 sudo apt install certbot
-sudo certbot certonly --standalone -d turn.alpha.alta3.com
+sudo certbot certonly --standalone -d turn.{{ cloud }}.alta3.com
 sudo mkdir -p /etc/coturn/certs
 echo copy the cert because COTURN will NOT follow symlinks created by letsencrypt
-sudo cp /etc/letsencrypt/live/turn.alpha.alta3.com/fullchain.pem /etc/coturn/certs/fullchain.pem
-sudo cp /etc/letsencrypt/live/turn.alpha.alta3.com/privkey.pem   /etc/coturn/certs/privkey.pem
+sudo cp /etc/letsencrypt/live/turn.{{ cloud }}.alta3.com/fullchain.pem /etc/coturn/certs/fullchain.pem
+sudo cp /etc/letsencrypt/live/turn.{{ cloud }}.alta3.com/privkey.pem   /etc/coturn/certs/privkey.pem
 cd /etc/coturn/certs/
 echo JAMMY requires a DHPARAM file to prevent diffie hellman logjam attacks, so calculate one
 echo COFFEE TIME (about five minutes)
-openssl dhparam -out dhparam4096.pem 4096
+sudo openssl dhparam -out dhparam4096.pem 4096
 sudo chown turnserver. /etc/coturn/certs/fullchain.pem
 sudo chown turnserver. /etc/coturn/certs/privkey.pem
 echo ===================================================================================
