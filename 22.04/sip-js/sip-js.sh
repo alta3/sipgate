@@ -15,6 +15,4 @@ sudo cp ~/sipgate/22.04/content/config.js  /var/www/html/
 cd ..
 sudo cp -r * /var/www/html/
 echo CUSTOMIZE the config.js file
-js ~/sipgate/22.04/content/config.js.j2  ~/sipgate/22.04/content/config.js
-sudo cp ~/sipgate/22.04/content/config.js  /var/www/html/
 sudo chown -R www-data:www-data /var/www/html/
