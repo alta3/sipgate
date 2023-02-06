@@ -6,9 +6,8 @@ sudo apt -y install npm
 npm install
 npm run build
 cd build/
-echo Look how totally wrong this file is! Don't worry, Sean will fix this step
 export IP4_ADDR=$(ip a s ens3 | awk -F"[/ ]+" '/inet / {print $3}')
-js ~/sipgate/22.04/content/config.js.j2  ~/sipgate/22.04/content/config.js
+j2 ~/sipgate/22.04/content/config.js.j2  ~/sipgate/22.04/content/config.js
 sudo cp ~/sipgate/22.04/content/config.js  /var/www/html/
 cd ..
 sudo cp -r * /var/www/html/
