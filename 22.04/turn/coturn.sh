@@ -1,10 +1,10 @@
 # ssh to the turn server first! 
 if [[ `hostname` != "turn" ]]; then echo YOU ARE IN THE WRONG BOX ctrl-c is perfect right now; read; fi
-sudo apt install git
+sudo apt install git -y
 echo ====================================================================================
 echo HANDLE TLS CERTS
 echo ====================================================================================
-sudo apt install certbot
+sudo apt install certbot -y
 sudo certbot certonly --standalone -d turn.{{ cloud }}.alta3.com
 sudo mkdir -p /etc/coturn/certs
 echo copy the cert because COTURN will NOT follow symlinks created by letsencrypt
@@ -23,6 +23,10 @@ sudo chown turnserver. /etc/coturn/certs/fullchain.pem
 sudo chown turnserver. /etc/coturn/certs/privkey.pem
 export TURN_IP4=$(hostname -I | awk '{print $1}')
 sudo apt install -y j2cli
+#j2 install on 20.04 and older
+#sudo apt install pip
+#python3 -m pip install j2cli
+#PATH=$PATH:/home/ubuntu/.local/bin
 j2 ~/sipgate/22.04/turn/turnserver.conf.j2 > ~/sipgate/22.04/turn/turnserver.conf
 sudo cp ~/sipgate/22.04/turn/turnserver.conf /etc/turnserver.conf
 sudo touch /var/log/turn.log
