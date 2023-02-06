@@ -6,7 +6,9 @@ sudo apt -y install npm
 npm install
 npm run build
 cd build/
-export IP4_ADDR=$(ip a s ens3 | awk -F"[/ ]+" '/inet / {print $3}')
+echo "Uncomment ONE of the two following lines depending on the turn server in use)
+export turn-ipv4="turn.alpha.alta3.com"
+#export turn-ipv4="turn.bravo.alta3.com"
 j2 ~/sipgate/22.04/content/config.js.j2  ~/sipgate/22.04/content/config.js
 sudo cp ~/sipgate/22.04/content/config.js  /var/www/html/
 cd ..
