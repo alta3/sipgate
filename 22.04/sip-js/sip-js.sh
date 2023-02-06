@@ -10,9 +10,9 @@ echo "Uncomment ONE of the two following lines depending on the turn server in u
 export turn_ipv4="turn.alpha.alta3.com"
 #export turn_ipv4="turn.bravo.alta3.com"
 j2 ~/sipgate/22.04/content/config.js.j2 > ~/sipgate/22.04/content/config.js
+sudo mkdir -p /var/www/html/
 sudo cp ~/sipgate/22.04/content/config.js  /var/www/html/
 cd ..
-sudo mkdir -p /var/www/html/
 sudo cp -r * /var/www/html/
 echo CUSTOMIZE the config.js file
 js ~/sipgate/22.04/content/config.js.j2  ~/sipgate/22.04/content/config.js
