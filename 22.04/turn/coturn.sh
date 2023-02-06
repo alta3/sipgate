@@ -18,14 +18,15 @@ echo ===========================================================================
 echo INSTALL COTURN
 echo ===================================================================================
 git clone https://github.com/alta3/sipgate.git
-sudo apt install -y coturn
+sudo apt install -y coturn 
 sudo chown turnserver. /etc/coturn/certs/fullchain.pem
 sudo chown turnserver. /etc/coturn/certs/privkey.pem
 export TURN_IP4=$(hostname -I | awk '{print $1}')
-j2 ~/sipgate/22.04/turn/turnserver.conf.j2   ~/sipgate/22.04/turn/turnserver.conf
+sudo apt install -y j2cli
+j2 ~/sipgate/22.04/turn/turnserver.conf.j2 > ~/sipgate/22.04/turn/turnserver.conf
 sudo cp ~/sipgate/22.04/turn/turnserver.conf /etc/turnserver.conf
 sudo touch /var/log/turn.log
-sudo chown coturn:coturn /var/log/turn.log
+sudo chown turnserver. /var/log/turn.log
 sudo systemctl restart coturn.service
 echo Troubleshooting: sudo tail -f /var/log/turn.log
 ```
