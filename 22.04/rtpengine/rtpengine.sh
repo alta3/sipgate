@@ -42,4 +42,3 @@ j2 ~/sipgate/22.04/rtpengine/rtpengine.conf.j2 > ~/sipgate/22.04/rtpengine/rtpen
 sudo cp ~/sipgate/22.04/rtpengine/rtpengine.conf /etc/rtpengine/rtpengine.conf
 
 sudo systemctl restart ngcp-rtpengine-daemon
-
