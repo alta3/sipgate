@@ -14,13 +14,13 @@ cd /etc/coturn/certs/
 echo JAMMY requires a DHPARAM file to prevent diffie hellman logjam attacks, so calculate one
 echo COFFEE TIME (about five minutes)
 sudo openssl dhparam -out dhparam4096.pem 4096
-sudo chown turnserver. /etc/coturn/certs/fullchain.pem
-sudo chown turnserver. /etc/coturn/certs/privkey.pem
 echo ===================================================================================
 echo INSTALL COTURN
 echo ===================================================================================
 git clone https://github.com/alta3/sipgate.git
 sudo apt install -y coturn
+sudo chown turnserver. /etc/coturn/certs/fullchain.pem
+sudo chown turnserver. /etc/coturn/certs/privkey.pem
 export TURN_IP4=$(hostname -I | awk '{print $1}')
 j2 ~/sipgate/22.04/turn/turnserver.conf.j2   ~/sipgate/22.04/turn/turnserver.conf
 sudo cp ~/sipgate/22.04/turn/turnserver.conf /etc/turnserver.conf
