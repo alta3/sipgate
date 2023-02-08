@@ -74,8 +74,8 @@ echo
 echo
 echo "Step 8: Copying certs to kamailio directory."
 echo "--------------------------------------------"
-sudo cp ~/certs/cert.key /etc/kamailio/privkey.pem
-sudo cp ~/certs/cert.pem /etc/kamailio/fullchain.pem
+sudo cp cert.key /etc/kamailio/privkey.pem
+sudo cp cert.pem /etc/kamailio/fullchain.pem
 
 echo
 echo
