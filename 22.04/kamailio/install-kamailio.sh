@@ -10,9 +10,6 @@ sudo apt install -y kamailio-tls-modules
 sudo apt install -y kamailio-extra-modules
 sudo apt install -y kamailio-json-modules
 
-echo "Use alta3 as your password."
-sudo kamdbctl create
-
 echo "Now run the script to create the certs."
 cat <<EOF
 Usage: $0 [output-directory]
@@ -108,6 +105,10 @@ j2 ~/sipgate/22.04/kamailio/kamctlrc.j2 > ~/sipgate/22.04/kamailio/kamctlrc
 sudo cp ~/sipgate/22.04/kamailio/kamailio.cfg /etc/kamailio/
 sudo cp ~/sipgate/22.04/kamailio/kamctlrc     /etc/kamailio/
 sudo cp ~/sipgate/22.04/kamailio/tls.cfg      /etc/kamailio/
+
+echo "Use alta3 as your password."
+sudo kamdbctl create
+
 sudo systemctl enable kamailio
 sleep 5
 sudo systemctl restart kamailio
