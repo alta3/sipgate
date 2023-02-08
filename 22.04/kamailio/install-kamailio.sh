@@ -10,7 +10,7 @@ sudo apt install -y kamailio-tls-modules
 sudo apt install -y kamailio-extra-modules
 sudo apt install -y kamailio-json-modules
 
-bash /home/student/sipgate/22.04/kamailio/make-test-cert.sh /etc/kamailio/
+bash /home/student/sipgate/22.04/kamailio/make-test-cert.sh .
 
 export MY_IP4_ADDR=$(ip a s ens3 | awk -F"[/ ]+" '/inet / {print $3}')
 export MY_DOMAIN="sipgate.alta3.com"
