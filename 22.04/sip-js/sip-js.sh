@@ -4,8 +4,9 @@ git clone https://github.com/havfo/SipCaller.git
 cd SipCaller/app
 sudo apt -y install npm
 npm install
-npm run build
+echo "Done installing, creating a DIR now."
 sudo mkdir -p /var/www/html/
+npm run build
 cd build/
 echo "Uncomment ONE of the two following lines depending on the turn server in use)
 export turn_ipv4="turn.alpha.alta3.com"
