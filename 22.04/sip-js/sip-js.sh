@@ -6,7 +6,7 @@ sudo apt -y install npm
 npm install
 echo "Done installing, creating a DIR now."
 sudo mkdir -p /var/www/html/
-npm run build
+bash -c '/usr/bin/npm run build'
 cd build/
 echo "Uncomment ONE of the two following lines depending on the turn server in use)
 export turn_ipv4="turn.alpha.alta3.com"
