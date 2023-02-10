@@ -1,11 +1,11 @@
 var iceServers = [
         {
-                urls       : 'turn:{{ turn_ipv4 }}:3478?transport=tcp',
+                urls       : 'turn:{{ TURN_FQDN }}:3478?transport=tcp',
                 username   : 'websip',
                 credential : 'websip'
         },
         {
-                urls       : 'turns:{{ turn_ipv4 }}:5349?transport=tcp',
+                urls       : 'turns:{{ TURN_FQDN }}:5349?transport=tcp',
                 username   : 'websip',
                 credential : 'websip'
         },
