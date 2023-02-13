@@ -1,9 +1,9 @@
 [rtpengine]
 table = 0
-interface = {{ MY_IP4_ADDR }}
+interface = {{ MY_IP4_ADDR }}!{{ MY_OUTSIDE_IP }}
 listen-ng = 127.0.0.1:22222
 timeout = 60
 silent-timeout = 3600
 tos = 184
-port-min = 16384
-port-max = 16485
+port-min = {{ RTPE_PORT_MIN }}
+port-max = {{ RTPE_PORT_MAX }}
