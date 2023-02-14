@@ -1,0 +1,170 @@
+1
+Source                S Port Destination           D Port Protocol Length Info
+127.0.0.1             52924  127.0.0.1             8080   HTTP     1091   GET / HTTP/1.1 
+==========================================================================================
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+Transmission Control Protocol, Src Port: 52924, Dst Port: 8080, Seq: 1, Ack: 1, Len: 1025
+Hypertext Transfer Protocol
+    GET / HTTP/1.1\r\n
+    Upgrade: websocket\r\n
+    Connection: Upgrade\r\n
+    Host: 127.0.0.1:8080\r\n
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36\r\n
+    Accept-Encoding: gzip, deflate, br\r\n
+    Accept-Language: en-US,en;q=0.9\r\n
+    Cache-Control: no-cache\r\n
+    Cookie: _ga=GA1.1.1782859892.1647652300; _hjSessionUser_284270 (TRUNCATED) \r\n
+    Origin: https://5gwebcli-77ac6177-617a-4efc-9adf-2e990b10fd32.live.alta3.com\r\n
+    Pragma: no-cache\r\n
+    Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits\r\n
+    Sec-WebSocket-Key: E4QjJYX27X8GBwvruDy59Q==\r\n
+    Sec-WebSocket-Protocol: sip\r\n
+    Sec-WebSocket-Version: 13\r\n
+    X-Forwarded-For: 71.251.147.234\r\n
+    X-Forwarded-Host: 5gwebcli-77ac6177-617a-4efc-9adf-2e990b10fd32.live.alta3.com\r\n
+    X-Forwarded-Port: 443\r\n
+    X-Forwarded-Proto: wss\r\n
+    X-Forwarded-Server: 23a90c316497\r\n
+    X-Real-Ip: 71.251.147.234\r\n
+    \r\n
+    [Full request URI: http://127.0.0.1:8080/]
+    [HTTP request 1/1]
+    [Response in frame: 12]
+
+
+2
+Source        SPort Destination  DPort Protocol Length  Info
+127.0.0.1     8080   127.0.0.1   52924  HTTP     318    HTTP/1.1 101 Switching Protocols 
+========================================================================================
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+Transmission Control Protocol, Src Port: 8080, Dst Port: 52924, Seq: 1, Ack: 1026, Len: 252
+Hypertext Transfer Protocol
+    HTTP/1.1 101 Switching Protocols\r\n
+    Sia: SIP/2.0/TCP 127.0.0.1:52924\r\n
+    Sec-WebSocket-Protocol: sip\r\n
+    Upgrade: websocket\r\n
+    Connection: upgrade\r\n
+    Sec-WebSocket-Accept: C0er2vEry72wQWM+fhfBc8HdI2o=\r\n
+    Server: kamailio (5.5.4 (x86_64/linux))\r\n
+    Content-Length: 0\r\n
+
+
+
+3
+Source     SPort Destination  DPort Protocol Length  Info
+127.0.0.1  52924  127.0.0.1   8080   SIP      560    Request: REGISTER sip:sipgate.alta3.com  (1 binding)
+=========================================================================================================
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+Transmission Control Protocol, Src Port: 52924, Dst Port: 8080, Seq: 1026, Ack: 253, Len: 494
+WebSocket
+    1... .... = Fin: True
+    .000 .... = Reserved: 0x0
+    .... 0001 = Opcode: Text (1)
+    1... .... = Mask: True
+    .111 1110 = Payload length: 126 Extended Payload Length (16 bits)
+    Extended Payload length (16 bits): 486
+    Masking-Key: 40829807
+    Masked payload
+    Payload
+Session Initiation Protocol (REGISTER)
+    Request-Line: REGISTER sip:sipgate.alta3.com SIP/2.0
+    Message Header
+        Via: SIP/2.0/WSS clno3ahq01ou.invalid;branch=z9hG4bK3598257
+        Max-Forwards: 70
+        To: "stu" <sip:2003@sipgate.alta3.com>
+        From: "stu" <sip:2003@sipgate.alta3.com>;tag=gec0bqmqj8
+        Call-ID: 99hngtbod28jh4llj11l0m
+        CSeq: 8584 REGISTER
+        Contact: <sip:rac6o15e@clno3ahq01ou.invalid;transport=ws>;expires=600
+        Allow: ACK,CANCEL,INVITE,MESSAGE,BYE,OPTIONS,INFO,NOTIFY,REFER
+        Supported: path, gruu, outbound
+        User-Agent: SIP.js/0.13.8
+        Content-Length: 0
+
+
+
+4
+Source                S Port Destination           D Port Protocol Length Info
+127.0.0.1             8080   127.0.0.1             52924  SIP      541    Status: 401 Unauthorized
+==================================================================================================
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+Transmission Control Protocol, Src Port: 8080, Dst Port: 52924, Seq: 253, Ack: 1520, Len: 475
+WebSocket
+    1... .... = Fin: True
+    .000 .... = Reserved: 0x0
+    .... 0001 = Opcode: Text (1)
+    0... .... = Mask: False
+    .111 1110 = Payload length: 126 Extended Payload Length (16 bits)
+    Extended Payload length (16 bits): 471
+    Payload
+Session Initiation Protocol (401)
+    Status-Line: SIP/2.0 401 Unauthorized
+    Message Header
+        Via: SIP/2.0/WSS clno3ahq01ou.invalid;branch=z9hG4bK3598257;rport=52924;received=127.0.0.1
+        To: "stu" <sip:2003@sipgate.alta3.com>;tag=aa12e2c142f2561d73ec391aa71bbeaf.40a30000
+        From: "stu" <sip:2003@sipgate.alta3.com>;tag=gec0bqmqj8
+        Call-ID: 99hngtbod28jh4llj11l0m
+        CSeq: 8584 REGISTER
+        WWW-Authenticate: Digest realm="sipgate.alta3.com", nonce="Y+GQiWPhj119B7OkEW+NofiKbZge4km0"
+        Server: kamailio (5.5.4 (x86_64/linux))
+        Content-Length: 0
+
+
+5
+Source    S Port Destination   D Port Protocol Length  Info
+127.0.0.1 52924  127.0.0.1      8080   SIP      757    Request: REGISTER sip:sipgate.alta3.com  (1 binding)
+===========================================================================================================
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+Transmission Control Protocol, Src Port: 52924, Dst Port: 8080, Seq: 1520, Ack: 728, Len: 691
+WebSocket
+    1... .... = Fin: True
+    .000 .... = Reserved: 0x0
+    .... 0001 = Opcode: Text (1)
+    1... .... = Mask: True
+    .111 1110 = Payload length: 126 Extended Payload Length (16 bits)
+    Extended Payload length (16 bits): 683
+    Masking-Key: 328afe9a
+    Masked payload
+    Payload
+Session Initiation Protocol (REGISTER)
+    Request-Line: REGISTER sip:sipgate.alta3.com SIP/2.0
+    Message Header
+        Via: SIP/2.0/WSS clno3ahq01ou.invalid;branch=z9hG4bK4111838
+        Max-Forwards: 70
+        To: "stu" <sip:2003@sipgate.alta3.com>
+        From: "stu" <sip:2003@sipgate.alta3.com>;tag=gec0bqmqj8
+        Call-ID: 99hngtbod28jh4llj11l0m
+        CSeq: 8585 REGISTER
+        Authorization: Digest algorithm=MD5, username="2003", realm="sipgate.alta3.com", nonce="Y+GQiWPhj119B7OkEW+NofiKbZge4km0", uri="sip:sipgate.alta3.com", response="d65a9d905344dbd62649968b3b9c4a37"
+        Contact: <sip:rac6o15e@clno3ahq01ou.invalid;transport=ws>;expires=600
+        Allow: ACK,CANCEL,INVITE,MESSAGE,BYE,OPTIONS,INFO,NOTIFY,REFER
+        Supported: path, gruu, outbound
+        User-Agent: SIP.js/0.13.8
+        Content-Length: 0
+
+
+6
+Source     SPort Destination  DPort Protocol Length  Info
+127.0.0.1  8080   127.0.0.1   52924  SIP      552    Status: 200 OK (REGISTER)  (1 binding)
+===========================================================================================
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+Transmission Control Protocol, Src Port: 8080, Dst Port: 52924, Seq: 728, Ack: 2211, Len: 486
+WebSocket
+    1... .... = Fin: True
+    .000 .... = Reserved: 0x0
+    .... 0001 = Opcode: Text (1)
+    0... .... = Mask: False
+    .111 1110 = Payload length: 126 Extended Payload Length (16 bits)
+    Extended Payload length (16 bits): 482
+    Payload
+Session Initiation Protocol (200)
+    Status-Line: SIP/2.0 200 OK
+    Message Header
+        Via: SIP/2.0/WSS clno3ahq01ou.invalid;branch=z9hG4bK4111838;rport=52924;received=127.0.0.1
+        To: "stu" <sip:2003@sipgate.alta3.com>;tag=aa12e2c142f2561d73ec391aa71bbeaf.40a30000
+        From: "stu" <sip:2003@sipgate.alta3.com>;tag=gec0bqmqj8
+        Call-ID: 99hngtbod28jh4llj11l0m
+        CSeq: 8585 REGISTER
+        Contact: <sip:rac6o15e@clno3ahq01ou.invalid;transport=ws>;expires=600;received="sip:127.0.0.1:52924;transport=ws"
+        Server: kamailio (5.5.4 (x86_64/linux))
+        Content-Length: 0
