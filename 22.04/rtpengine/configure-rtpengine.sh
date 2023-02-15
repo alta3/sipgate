@@ -3,6 +3,8 @@ echo "These values will be supplied by your instructor."
 echo
 read -p "Press Enter when ready."
 
+sudo apt install j2cli -y
+
 export RTPE_PORT_MIN=`cat ~/portmin`
 
 export RTPE_PORT_MAX=`cat ~/portmax`
