@@ -3,9 +3,9 @@ echo "These values will be supplied by your instructor."
 echo
 read -p "Press Enter when ready."
 
-read -p "RTPE_PORT_MIN = " RTPE_PORT_MIN
+export RTPE_PORT_MIN=`cat ~/portmin`
 
-read -p "RTPE_PORT_MAX = " RTPE_PORT_MAX
+export RTPE_PORT_MAX=`cat ~/portmax`
 
 if [[ -z "$RTPE_PORT_MIN" ]] ; then  echo "ERROR: RTPE_PORT_MIN not set" ; fi
 
