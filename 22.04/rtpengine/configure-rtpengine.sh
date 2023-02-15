@@ -11,7 +11,7 @@ if [[ -z "$RTPE_PORT_MIN" ]] ; then  echo "ERROR: RTPE_PORT_MIN not set" ; fi
 
 if [[ -z "$RTPE_PORT_MAX" ]] ; then  echo "ERROR: RTPE_PORT_MAX not set" ; fi
 
-export TURN_CLOUD=$(nslookup 10.0.0.1 | grep -oP alpha||bravo)
+export TURN_CLOUD=$(nslookup 10.0.0.1 | grep -oP 'alpha|bravo')
 
 export TURN_FQDN="turn.$TURN_CLOUD.alta3.com"
 
