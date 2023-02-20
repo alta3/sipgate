@@ -16,6 +16,9 @@ OUTPUT_DIR="$1"
 mkdir -p $OUTPUT_DIR
 cd $OUTPUT_DIR
 
+echo "FOR EACH STEP, enter a password!"
+echo
+echo
 echo "Step 1: Generate CA private key"
 echo "-------------------------------"
 openssl genrsa -des3 -out ca.key 2048
