@@ -31,3 +31,5 @@ sudo dpkg-buildpackage -us -uc -sa
 cd ../
 
 sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb
+
+cd
