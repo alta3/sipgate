@@ -1,5 +1,7 @@
 echo
 
+cd
+
 sudo apt install j2cli -y
 
 export RTPE_PORT_MIN=`cat ~/portmin`
