@@ -1,5 +1,9 @@
 #!KAMAILIO
-#
+# JINJA VARs
+# {{ MY_DOMAIN }}
+# {{ MY_INTERNAL_DOMAIN }}
+# {{ MY_IPV4 }}
+# {{ MY_IPV6 }}
 
 #!define WITH_MYSQL
 #!define WITH_AUTH
@@ -18,7 +22,7 @@
 #!substdef "!MY_WS_PORT!8080!g"
 #!substdef "!MY_WSS_PORT!4443!g"
 
-#!substdef "!MY_IP4_ADDR!10.9.78.8!g"
+#!substdef "!MY_IP4_ADDR!{{ MY_IPV4 }}!g"
 #!substdef "!IP4_LOCALHOST!127.0.0.1!g"
 #!substdef "!MY_WS4_ADDR!tcp:MY_IP4_ADDR:MY_WS_PORT!g"
 #!substdef "!MY_WSS4_ADDR!tls:MY_IP4_ADDR:MY_WSS_PORT!g"
@@ -26,7 +30,7 @@
 #!substdef "!LOCALHOST_WSS4_ADDR!tls:IP4_LOCALHOST:MY_WSS_PORT!g"
 
 #!ifdef WITH_IPV6
-#!substdef "!MY_IP6_ADDR![fe80::a8a3:a3ff:fe09:4e08]!g"
+#!substdef "!MY_IP6_ADDR![{{ MY_IPV6 }}]!g"
 #!substdef "!IP6_LOCALHOST![::1]!g"
 #!substdef "!MY_WS6_ADDR!tcp:MY_IP6_ADDR:MY_WS_PORT!g"
 #!substdef "!MY_WSS6_ADDR!tls:MY_IP6_ADDR:MY_WSS_PORT!g"
@@ -34,20 +38,20 @@
 #!substdef "!LOCALHOST_WSS6_ADDR!tls:IP6_LOCALHOST:MY_WSS_PORT!g"
 #!endif
 
-#!substdef "!MY_DOMAIN!sipgate.alta3.com!g"
+#!substdef "!MY_DOMAIN!{{ MY_DOMAIN }}!g"
 
 # *** Value defines - IDs used later in config
 #!ifdef WITH_MYSQL
 # - database URL - used to connect to database server by modules such
-#		 as: auth_db, acc, usrloc, a.s.o.
+#   as: auth_db, acc, usrloc, a.s.o.
 #!ifndef DBURL
 #!define DBURL "mysql://kamailio:kamailiorw@localhost/kamailio"
 #!endif
 #!endif
 
 # - flags
-#	 FLT_ - per transaction (message) flags
-#	FLB_ - per branch flags
+# FLT_ - per transaction (message) flags
+# FLB_ - per branch flags
 #!define FLT_NATS 5
 
 #!define FLB_NATB 6
@@ -122,15 +126,15 @@ listen=LOCALHOST_WSS6_ADDR
 #!endif
 #!endif
 
-use_dns_cache = on			# Use KAMAILIO internal DNS cache
+use_dns_cache = on		# Use KAMAILIO internal DNS cache
 use_dns_failover = on		# Depends on KAMAILIO internal DNS cache
-dns_srv_loadbalancing = on		#
-dns_try_naptr = on			#
+dns_srv_loadbalancing = on	#
+dns_try_naptr = on		#
 dns_retr_time=1			# Time in seconds before retrying a DNS request
-dns_retr_no=3				# Number of DNS retransmissions before giving up
+dns_retr_no=3			# Number of DNS retransmissions before giving up
 
 # Set protocol preference order - ignore target priority
-dns_naptr_ignore_rfc= yes		 # Ignore target NAPTR priority
+dns_naptr_ignore_rfc= yes	# Ignore target NAPTR priority
 dns_tls_pref=50			# First priority: TLS
 dns_tcp_pref=30			# Second priority: TCP
 dns_udp_pref=10			# Third priority: UDP
@@ -280,8 +284,8 @@ modparam("usrloc", "nat_bflag", FLB_NATB)
 
 # ----- corex params -----
 modparam("corex", "alias_subdomains", "MY_DOMAIN")
-modparam("corex", "alias_subdomains", "sipgate.104305f8-c47f-4fac-ae0e-28b95d50a3a2")
-modparam("corex", "alias_subdomains", "10.9.78.8")
+modparam("corex", "alias_subdomains", "{{ MY_INTERNAL_DOMAIN")
+modparam("corex", "alias_subdomains", "{{ MY_IPV4 }}")
 
 
 #!ifdef WITH_TLS
