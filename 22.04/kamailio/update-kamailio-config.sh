@@ -14,7 +14,7 @@ sudo apt install -y j2cli
 
 j2 ~/sipgate/22.04/kamailio/kamailio.adam.cfg.j2 > ~/sipgate/22.04/kamailio/kamailio_update.cfg
 
-sudo cp ~/sipgate/22.04/kamailio/kamailio_update.cfg /etc/kamailio/
+sudo cp ~/sipgate/22.04/kamailio/kamailio_update.cfg /etc/kamailio/kamailio.cfg
 
 sleep 5
 
