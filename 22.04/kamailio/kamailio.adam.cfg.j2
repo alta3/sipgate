@@ -283,8 +283,8 @@ modparam("usrloc", "nat_bflag", FLB_NATB)
 ##!endif
 
 # ----- corex params -----
-modparam("corex", "alias_subdomains", "MY_DOMAIN")
-modparam("corex", "alias_subdomains", "{{ MY_INTERNAL_DOMAIN")
+modparam("corex", "alias_subdomains", "{{ MY_DOMAIN }}")
+modparam("corex", "alias_subdomains", "{{ MY_INTERNAL_DOMAIN }}")
 modparam("corex", "alias_subdomains", "{{ MY_IPV4 }}")
 
 
