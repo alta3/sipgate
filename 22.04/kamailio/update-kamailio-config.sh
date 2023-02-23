@@ -8,8 +8,8 @@ export MY_DOMAIN="sipgate.alta3.com"
 
 export MY_IP6_ADDR=$(ip a s ens3 | awk -F"[/ ]+" '/inet6 / {print $3}')
 
-export MY_INTERNAL_DOMAIN=$(nslookup $MY_IP4_ADDR | awk '{print $4}')
-#export MY_INTERNAL_DOMAIN=$(nslookup $MY_IP4_ADDR | awk '{print $4}' | rev | cut -c2- | rev)
+#export MY_INTERNAL_DOMAIN=$(nslookup $MY_IP4_ADDR | awk '{print $4}')
+export MY_INTERNAL_DOMAIN=$(nslookup $MY_IP4_ADDR | awk '{print $4}' | rev | cut -c2- | rev)
 
 sudo apt install -y j2cli
 
