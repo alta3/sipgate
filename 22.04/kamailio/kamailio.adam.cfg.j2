@@ -2,8 +2,8 @@
 # JINJA VARs
 # {{ MY_DOMAIN }}
 # {{ MY_INTERNAL_DOMAIN }}
-# {{ MY_IPV4 }}
-# {{ MY_IPV6 }}
+# {{ MY_IP4_ADDR }}
+# {{ MY_IP6_ADDR }}
 
 #!define WITH_MYSQL
 #!define WITH_AUTH
@@ -22,7 +22,7 @@
 #!substdef "!MY_WS_PORT!8080!g"
 #!substdef "!MY_WSS_PORT!4443!g"
 
-#!substdef "!MY_IP4_ADDR!{{ MY_IPV4 }}!g"
+#!substdef "!MY_IP4_ADDR!{{ MY_IP4_ADDR }}!g"
 #!substdef "!IP4_LOCALHOST!127.0.0.1!g"
 #!substdef "!MY_WS4_ADDR!tcp:MY_IP4_ADDR:MY_WS_PORT!g"
 #!substdef "!MY_WSS4_ADDR!tls:MY_IP4_ADDR:MY_WSS_PORT!g"
@@ -30,7 +30,7 @@
 #!substdef "!LOCALHOST_WSS4_ADDR!tls:IP4_LOCALHOST:MY_WSS_PORT!g"
 
 #!ifdef WITH_IPV6
-#!substdef "!MY_IP6_ADDR![{{ MY_IPV6 }}]!g"
+#!substdef "!MY_IP6_ADDR![{{ MY_IP6_ADDR }}]!g"
 #!substdef "!IP6_LOCALHOST![::1]!g"
 #!substdef "!MY_WS6_ADDR!tcp:MY_IP6_ADDR:MY_WS_PORT!g"
 #!substdef "!MY_WSS6_ADDR!tls:MY_IP6_ADDR:MY_WSS_PORT!g"
