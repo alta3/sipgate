@@ -26,7 +26,7 @@ sudo apt install -y j2cli
 #j2 install on 20.04 and older
 #sudo apt install pip -y
 #python3 -m pip install j2cli
-#PATH=$PATH:/home/ubuntu/.local/bin
+#export PATH=$PATH:/home/ubuntu/.local/bin
 j2 ~/sipgate/22.04/turn/turnserver.conf.j2 > ~/sipgate/22.04/turn/turnserver.conf
 sudo cp ~/sipgate/22.04/turn/turnserver.conf /etc/turnserver.conf
 sudo touch /var/log/turn.log
