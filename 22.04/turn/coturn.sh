@@ -24,7 +24,7 @@ sudo chown turnserver. /etc/coturn/certs/privkey.pem
 export TURN_IP4=$(hostname -I | awk '{print $1}')
 sudo apt install -y j2cli
 #j2 install on 20.04 and older
-#sudo apt install pip
+#sudo apt install pip -y
 #python3 -m pip install j2cli
 #PATH=$PATH:/home/ubuntu/.local/bin
 j2 ~/sipgate/22.04/turn/turnserver.conf.j2 > ~/sipgate/22.04/turn/turnserver.conf
