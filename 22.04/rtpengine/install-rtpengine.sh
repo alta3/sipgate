@@ -4,12 +4,6 @@ sudo apt update
 
 sudo apt upgrade
 
-sudo apt remove --auto-remove nftables
-
-sudo apt purge nftables
-
-sudo apt update
-
 sudo apt install iptables-persistent iptables
 
 sudo apt install -y cmake debhelper init-system-helpers default-libmysqlclient-dev gperf libmysqlclient-dev libip4tc-dev libip6tc-dev libiptc-dev libxtables-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libbencode-perl libcrypt-openssl-rsa-perl libcrypt-rijndael-perl libhiredis-dev libio-multiplex-perl libio-socket-inet6-perl libjson-glib-dev libdigest-crc-perl libdigest-hmac-perl libnet-interface-perl libnet-interface-perl libssl-dev libsystemd-dev libxmlrpc-core-c3-dev libcurl4-openssl-dev libevent-dev libpcap0.8-dev markdown unzip nfs-common dkms libspandsp-dev libjson-perl libmosquitto-dev libopus-dev libtest2-suite-perl libwebsockets-dev python3-websockets libmnl-dev libncurses-dev libnftnl-dev pandoc
@@ -42,6 +36,6 @@ sudo dpkg-buildpackage -us -uc -sa
 
 cd ../
 
-sudo dpkg -i ngcp-rtpengine-daemon_*.deb ngcp-rtpengine-iptables_*.deb ngcp-rtpengine-kernel-dkms_*.deb
+sudo dpkg -i ngcp-rtpengine-daemon_*.deb  ngcp-rtpengine-kernel-dkms_*.deb
 
 cd
