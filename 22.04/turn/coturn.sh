@@ -33,4 +33,3 @@ sudo touch /var/log/turn.log
 sudo chown turnserver. /var/log/turn.log
 sudo systemctl restart coturn.service
 echo Troubleshooting: sudo tail -f /var/log/turn.log
-```
